@@ -1,8 +1,9 @@
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
+import { GlobalContext } from "../../pages/_app";
 import { LOGIN_USER } from "../../queries/login/login.queries";
 import * as Login from "../../styles/login/Login.styles";
 
@@ -16,6 +17,7 @@ const LoginComponent = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const { moveToPage } = useMoveToPage();
+  const { accessToken } = useContext(GlobalContext);
 
   const [loginUser] = useMutation(LOGIN_USER);
 
@@ -76,6 +78,9 @@ const LoginComponent = () => {
       }
     }
   };
+  if (accessToken) {
+    router.push("/useditems");
+  }
 
   const onCheckEnter = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
