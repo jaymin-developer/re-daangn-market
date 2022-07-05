@@ -6,14 +6,14 @@ export const WrapperHeader = styled.header`
   height: 64px;
 
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 5fr 2fr;
   align-items: center;
 
   position: fixed;
 
   gap: 10px;
 
-  padding: 0 16px;
+  padding: 0 10%;
 
   background-color: #ffffff;
 
@@ -35,7 +35,7 @@ export const SearchBarSpan = styled.span`
 
 export const SearchBarInput = styled.input`
   font-size: ${FontSize.ButtonLargeText};
-  width: 50%;
+  width: 300px;
 
   background-color: #f2f3f6;
 

@@ -1,7 +1,13 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export type IPage = "/" | "/login" | "/board" | "/market" | "/mypage";
+export type IPage =
+  | "/"
+  | "/login"
+  | "/board"
+  | "/market"
+  | "/mypage"
+  | "/signup";
 
 export function useMoveToPage() {
   const router = useRouter();

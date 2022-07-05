@@ -1,25 +1,28 @@
 import styled from "@emotion/styled";
 
 export const WrapperDiv = styled.div`
+  width: 100%;
+  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const LoginHeader = styled.div`
+export const LoginHeaderDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const Logo = styled.img``;
+export const LogoImg = styled.img``;
 
-export const LoginBody = styled.div`
+export const LoginBodyDiv = styled.div`
   margin-top: 20px;
   width: 100%;
 `;
-export const Email = styled.input`
+export const EmailInput = styled.input`
   width: 100%;
   height: 40px;
   padding: 5px 10px;
@@ -28,14 +31,14 @@ export const Email = styled.input`
   border-radius: 7px;
 `;
 
-export const ErrorMessage = styled.div`
+export const ErrorMessageDiv = styled.div`
   width: 100%;
   height: 30px;
   font-size: 12px;
   color: red;
 `;
 
-export const Password = styled.input`
+export const PasswordInput = styled.input`
   width: 100%;
   height: 40px;
   padding: 5px 10px;
@@ -57,7 +60,7 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const LoginFooter = styled.div`
+export const LoginFooterDiv = styled.div`
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -65,34 +68,10 @@ export const LoginFooter = styled.div`
   justify-content: space-around;
 `;
 
-export const FindEmail = styled.div``;
-export const FindPassword = styled.div``;
-export const SignUp = styled.div`
+export const FindEmailDiv = styled.div``;
+export const FindPasswordDiv = styled.div``;
+export const SignUpDiv = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
-
-export const SocialLoginButton = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 20px;
-  border-radius: 38px;
-  padding: 20px 0;
-  background-color: #fae100;
-  border: 2px solid none;
-  margin-top: 10px;
-  cursor: pointer;
-`;
-export const SocialLoginButtonImg = styled.img`
-  width: 32px;
-  height: 30px;
-  margin-right: 20px;
-`;
-export const SocialLoginButtonTitle = styled.div`
-  opacity: 1;
-  font-size: 16px;
-  font-weight: bold;
 `;
