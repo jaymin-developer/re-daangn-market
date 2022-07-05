@@ -15,10 +15,12 @@ export const MainSection = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  padding: 0px 36px;
 `;
 
 export const FirstMainSection = styled(MainSection)`
-  background-color: ${Color.mainBackGround};
+  background-color: ${Color.MainBackGround};
 `;
 
 export const TitleBoxDiv = styled.div`
@@ -29,7 +31,7 @@ export const TitleBoxDiv = styled.div`
 `;
 
 export const MainTitleH1 = styled.h1`
-  font-size: ${FontSize.mainTitle};
+  font-size: ${FontSize.MainTitle};
   font-weight: 700;
 
   line-height: 1.3;
@@ -37,7 +39,7 @@ export const MainTitleH1 = styled.h1`
 `;
 
 export const MainTextP = styled.p`
-  font-size: ${FontSize.mainText};
+  font-size: ${FontSize.MainText};
 
   line-height: 1.5;
   letter-spacing: -0.3px;
@@ -67,7 +69,7 @@ export const ButtonBoxDiv = styled.div`
 `;
 
 export const MainButton = styled.button`
-  background-color: ${Color.buttonBackGround};
+  background-color: ${Color.ButtonBackGround};
   font-weight: 700;
 
   padding: 16px 32px;
@@ -75,7 +77,7 @@ export const MainButton = styled.button`
 `;
 
 export const ThirdMainSection = styled(FirstMainSection)`
-  background-color: ${Color.subBackGround};
+  background-color: ${Color.SubBackGround};
 `;
 
 export const ThirdPageImg = styled.img`

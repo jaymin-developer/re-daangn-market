@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import * as Home from "../styles/Home.Styles";
+import * as Home from "../styles/Home.styles";
 
 const HomePage: NextPage = () => {
   return (
@@ -51,7 +51,7 @@ const HomePage: NextPage = () => {
       <Home.ThirdMainSection>
         <Home.TitleBoxDiv>
           <Home.MainTitleH1>
-            이웃솨 함께 하는
+            이웃과 함께 하는
             <br />
             동네생활
           </Home.MainTitleH1>
