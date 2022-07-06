@@ -37,7 +37,7 @@ const ItemComponent = (props: IPropsItem) => {
         }).format(props.el.price)}
       </ItemPriceDiv>
       <ItemRegionDiv>
-        {props.el.useditemAddress
+        {props.el.useditemAddress?.address
           ? props.el.useditemAddress.address
           : "위치 정보 없음"}
       </ItemRegionDiv>
