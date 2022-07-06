@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useMoveToPage } from "../hooks/useRouter";
 import * as Main from "../styles/Main.styles";
 
 const HomePage: NextPage = () => {
+  const { moveToPage } = useMoveToPage();
+
   return (
     <Main.WrapperDiv>
       <Head>
@@ -12,10 +15,19 @@ const HomePage: NextPage = () => {
           name="description"
           content="중고 거래부터 동네 정보까지, 이웃과 함께해요. 가깝고 따뜻한 당신의 근처를 만들어요."
         />
-        <meta name="description" content="중고 거래부터 동네 정보까지, 이웃과 함께해요. 가깝고 따뜻한 당신의 근처를 만들어요." />
+        <meta
+          name="description"
+          content="중고 거래부터 동네 정보까지, 이웃과 함께해요. 가깝고 따뜻한 당신의 근처를 만들어요."
+        />
         <meta property="og:title" content="당신 근처의 당근마켓" />
-        <meta property="og:description" content="중고 거래부터 동네 정보까지, 이웃과 함께해요. 가깝고 따뜻한 당신의 근처를 만들어요." />
-        <meta property="og:image" content="https://www.daangn.com/images/meta/home/daangn.png" />
+        <meta
+          property="og:description"
+          content="중고 거래부터 동네 정보까지, 이웃과 함께해요. 가깝고 따뜻한 당신의 근처를 만들어요."
+        />
+        <meta
+          property="og:image"
+          content="https://www.daangn.com/images/meta/home/daangn.png"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main.FirstMainSection>
@@ -45,7 +57,9 @@ const HomePage: NextPage = () => {
             동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.
           </Main.MainTextP>
           <Main.ButtonBoxDiv>
-            <Main.MainButton>인기매물 보기</Main.MainButton>
+            <Main.MainButton onClick={moveToPage("/market")}>
+              인기매물 보기
+            </Main.MainButton>
             <Link href={"https://www.daangn.com/trust"}>
               <Main.MainButton>믿을 수 있는 중고거래</Main.MainButton>
             </Link>

@@ -1,9 +1,13 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { KeyboardEvent, useContext } from "react";
+import { KeyboardEvent, useContext, useEffect, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
-import { LOGOUT_USER } from "../../queries/layout/Header.queries";
+import {
+  FETCH_USER_LOGGED_IN,
+  LOGOUT_USER,
+} from "../../queries/layout/Header.queries";
+import { IQuery } from "../../src/commons/types/generated/types";
 import * as Header from "../../styles/layout/Header.styles";
 import {
   FuncButtonSub,
@@ -13,9 +17,17 @@ import {
 
 const LayoutHeaderComponent = () => {
   const router = useRouter();
+  const [clickMenu, setClickMenu] = useState(false);
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
-  const { accessToken, setSearch } = useContext(GlobalContext);
+  const { accessToken, setUserInfo, setSearch } = useContext(GlobalContext);
+  const { data } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+
+  const onClickMenu = () => {
+    setClickMenu(true);
+    router.push("/market");
+  };
 
   const onClickLogOut = () => {
     logoutUser();
@@ -31,27 +43,41 @@ const LayoutHeaderComponent = () => {
     }
   };
 
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("UserInfo", JSON.stringify(data.fetchUserLoggedIn));
+    }
+    if (localStorage.getItem("UserInfo")) {
+      setUserInfo(localStorage.getItem("UserInfo") || {});
+    }
+  }, [data]);
+
   return (
     <Header.WrapperHeader>
-      <Header.LogoImg src="/logo-basic.svg" onClick={moveToPage("/")} />
-      <Header.SearchBarSpan>
-        <Header.SearchBarInput
-          placeholder="물품을 검색해보세요"
-          onKeyPress={onKeyEnter}
-        />
-      </Header.SearchBarSpan>
-      {!accessToken && (
-        <Header.WrapperRightDiv>
-          <MoveButtonMain name="로그인" page="/login" />
-          <MoveButtonSub name="회원가입" page="/" />
-        </Header.WrapperRightDiv>
-      )}
-      {accessToken && (
-        <Header.WrapperRightDiv>
-          <MoveButtonMain name="마이페이지" page="/mypage" />
-          <FuncButtonSub name="로그아웃" func={onClickLogOut} />
-        </Header.WrapperRightDiv>
-      )}
+      <Header.WrapperBoxDiv>
+        <Header.LogoImg src="/logo-basic.svg" onClick={moveToPage("/")} />
+        <Header.MenuP onClick={onClickMenu} clickMenu={clickMenu}>
+          중고거래
+        </Header.MenuP>
+        <Header.SearchBarSpan>
+          <Header.SearchBarInput
+            placeholder="물품을 검색해보세요"
+            onKeyPress={onKeyEnter}
+          />
+        </Header.SearchBarSpan>
+        {!accessToken && (
+          <Header.WrapperRightDiv>
+            <MoveButtonMain name="로그인" page="/login" />
+            <MoveButtonSub name="회원가입" page="/" />
+          </Header.WrapperRightDiv>
+        )}
+        {accessToken && (
+          <Header.WrapperRightDiv>
+            <MoveButtonMain name="마이페이지" page="/mypage" />
+            <FuncButtonSub name="로그아웃" func={onClickLogOut} />
+          </Header.WrapperRightDiv>
+        )}
+      </Header.WrapperBoxDiv>
     </Header.WrapperHeader>
   );
 };

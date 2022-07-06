@@ -26,13 +26,14 @@ interface IGlobalContext {
   accessToken?: string;
   setAccessToken?: Dispatch<SetStateAction<string>>;
   userInfo?: object;
-  setUserInfo?: Dispatch<SetStateAction<string | object>>;
+  setUserInfo: Dispatch<SetStateAction<string | object>>;
   search?: string;
   setSearch: Dispatch<SetStateAction<string>>;
 }
 
 export const GlobalContext = createContext<IGlobalContext>({
   setSearch: String,
+  setUserInfo: String || Object,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

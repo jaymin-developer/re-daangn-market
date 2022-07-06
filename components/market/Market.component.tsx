@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Empty, Spin } from "antd";
 import { ChangeEvent, useContext, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { GlobalContext } from "../../pages/_app";
@@ -12,7 +13,7 @@ import RegionSelect from "./SearchRegion.component";
 const MarketComponent = () => {
   const [region, setRegion] = useState("");
   const { search } = useContext(GlobalContext);
-  const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
+  const { data, fetchMore, loading } = useQuery(FETCH_USED_ITEMS, {
     variables: { page: 1, search: search },
   });
 
@@ -46,27 +47,38 @@ const MarketComponent = () => {
         <RegionSelect onChangeRegion={onChangeRegion} />
         <MoveButtonMain name="중고 등록하기" page="/market/new" />
       </Market.SearchWriteDiv>
-      <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
-        {!data?.fetchUseditems.length && (
-          <Market.NoDataDiv>검색 결과가 없습니다.</Market.NoDataDiv>
-        )}
+      {loading && (
+        <Market.NoDataDiv>
+          <Spin size="large" />
+          <div>검색 중입니다.</div>
+        </Market.NoDataDiv>
+      )}
 
-        <Market.ListSection>
-          {/* 지역 설정 시 데이터 */}
-          {region &&
-            data?.fetchUseditems
-              .filter((el: IUseditem) =>
-                el.useditemAddress?.address?.slice(0, 2).includes(region)
-              )
-              .map((el: IUseditem) => <ItemComponent el={el} />)}
+      {!loading && (
+        <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
+          {!data?.fetchUseditems.length && (
+            <Market.NoDataDiv>
+              <Empty description={<span>검색 결과가 없습니다.</span>} />
+            </Market.NoDataDiv>
+          )}
 
-          {/* 지역 미설정 시 데이터 */}
-          {!region &&
-            data?.fetchUseditems.map((el: IUseditem) => (
-              <ItemComponent el={el} />
-            ))}
-        </Market.ListSection>
-      </InfiniteScroll>
+          <Market.ListSection>
+            {/* 지역 설정 시 데이터 */}
+            {region &&
+              data?.fetchUseditems
+                .filter((el: IUseditem) =>
+                  el.useditemAddress?.address?.slice(0, 2).includes(region)
+                )
+                .map((el: IUseditem) => <ItemComponent el={el} />)}
+
+            {/* 지역 미설정 시 데이터 */}
+            {!region &&
+              data?.fetchUseditems.map((el: IUseditem) => (
+                <ItemComponent el={el} />
+              ))}
+          </Market.ListSection>
+        </InfiniteScroll>
+      )}
     </Market.WrapperSection>
   );
 };

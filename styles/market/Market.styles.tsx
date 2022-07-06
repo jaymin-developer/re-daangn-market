@@ -1,23 +1,19 @@
 import styled from "@emotion/styled";
 
 export const WrapperSection = styled.section`
+  max-width: 1440px;
   width: 100%;
+  height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 
-  gap: 20px;
-
-  margin-top: 64px;
-
-  padding: 32px;
+  padding: 96px 160px 0px;
 `;
 
 export const HeaderH1 = styled.h1`
   font-size: 36px;
   font-weight: 700;
+  text-align: center;
 `;
 
 export const SearchWriteDiv = styled.div`
@@ -26,14 +22,18 @@ export const SearchWriteDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  margin: 20px 0px;
 `;
 
 export const NoDataDiv = styled.div`
-  width: 100%;
+  position: absolute;
 
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
 `;
 
 export const ListSection = styled.section`
