@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
-import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
 import { LOGIN_USER } from "../../queries/login/Login.queries";
 import * as Login from "../../styles/login/Login.styles";
