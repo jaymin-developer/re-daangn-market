@@ -10,12 +10,12 @@ export const BaseButton = styled.button`
   font-weight: 700;
 `;
 
-export const Button1Button = styled(BaseButton)`
+export const MainColorButton = styled(BaseButton)`
   color: ${Color.White};
   background-color: ${Color.Main};
 `;
 
-export const Button2Button = styled(BaseButton)`
+export const SubColorButton = styled(BaseButton)`
   color: ${Color.Main};
   background-color: ${Color.White};
   border: 1px solid ${Color.Main};

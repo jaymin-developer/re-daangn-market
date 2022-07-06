@@ -1,22 +1,27 @@
 import styled from "@emotion/styled";
 
 export const WrapperDiv = styled.div`
-  width: 100%;
+  max-width: 100%;
+  width: 800px;
   height: 100vh;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  padding: 0 20%;
 `;
 
 export const LoginHeaderDiv = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
-export const LogoImg = styled.img``;
+export const LogoImg = styled.img`
+  width: 70px;
+`;
 
 export const LoginBodyDiv = styled.div`
   margin-top: 20px;
@@ -55,22 +60,6 @@ export const LoginButton = styled.button`
   color: white;
   font-size: 18px;
   border-radius: 7px;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-export const LoginFooterDiv = styled.div`
-  margin-top: 10px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-export const FindEmailDiv = styled.div``;
-export const FindPasswordDiv = styled.div``;
-export const SignUpDiv = styled.div`
   :hover {
     cursor: pointer;
   }

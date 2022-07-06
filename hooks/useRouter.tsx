@@ -7,7 +7,8 @@ export type IPage =
   | "/board"
   | "/market"
   | "/mypage"
-  | "/signup";
+  | "/signup"
+  | "/market/new";
 
 export function useMoveToPage() {
   const router = useRouter();

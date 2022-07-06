@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
-import { LOGIN_USER } from "../../queries/login/login.queries";
+import { LOGIN_USER } from "../../queries/login/Login.queries";
 import * as Login from "../../styles/login/Login.styles";
 
 const LoginComponent = () => {
@@ -15,8 +15,6 @@ const LoginComponent = () => {
   });
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const { moveToPage } = useMoveToPage();
   const { accessToken } = useContext(GlobalContext);
 
   const [loginUser] = useMutation(LOGIN_USER);
@@ -79,7 +77,7 @@ const LoginComponent = () => {
     }
   };
   if (accessToken) {
-    router.push("/useditems");
+    router.push("/market");
   }
 
   const onCheckEnter = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -91,7 +89,7 @@ const LoginComponent = () => {
   return (
     <Login.WrapperDiv>
       <Login.LoginHeaderDiv>
-        <Login.LogoImg src="/images/logo-basic.svg" />
+        <Login.LogoImg src="/logo_daangn.png" />
       </Login.LoginHeaderDiv>
       <Login.LoginBodyDiv onKeyPress={onCheckEnter}>
         <Login.EmailInput
@@ -114,13 +112,6 @@ const LoginComponent = () => {
         </Login.ErrorMessageDiv>
         <Login.LoginButton onClick={onClickLogin}>로그인</Login.LoginButton>
       </Login.LoginBodyDiv>
-      <Login.LoginFooterDiv>
-        <Login.FindEmailDiv>아이디 찾기</Login.FindEmailDiv>
-        <Login.FindPasswordDiv>비밀번호 찾기</Login.FindPasswordDiv>
-        <Login.SignUpDiv onClick={moveToPage("/signup")}>
-          회원가입
-        </Login.SignUpDiv>
-      </Login.LoginFooterDiv>
     </Login.WrapperDiv>
   );
 };
