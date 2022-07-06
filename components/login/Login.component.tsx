@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { GlobalContext } from "../../pages/_app";
-import { FETCH_LOGIN_USER } from "../../queries/login/Login.queries";
+import { LOGIN_USER } from "../../queries/login/Login.queries";
 import * as Login from "../../styles/login/Login.styles";
 
 const LoginComponent = () => {
@@ -16,7 +16,7 @@ const LoginComponent = () => {
   const [passwordError, setPasswordError] = useState("");
   const { accessToken } = useContext(GlobalContext);
 
-  const [loginUser] = useMutation(FETCH_LOGIN_USER);
+  const [loginUser] = useMutation(LOGIN_USER);
 
   const onChangeLoginInfo = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginInfo((prev) => {
