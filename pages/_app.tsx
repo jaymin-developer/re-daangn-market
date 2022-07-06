@@ -17,7 +17,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getAccessToken } from "../components/common/libraries/getAccessToken";
+import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 import { createUploadLink } from "apollo-upload-client";
 import { Global } from "@emotion/react";
 import { restStyles } from "../styles/reset";

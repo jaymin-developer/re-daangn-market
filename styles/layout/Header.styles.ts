@@ -13,7 +13,7 @@ export const WrapperHeader = styled.header`
 
   gap: 10px;
 
-  padding: 0 10%;
+  padding: 0 32px;
 
   background-color: #ffffff;
 

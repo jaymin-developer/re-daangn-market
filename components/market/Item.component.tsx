@@ -1,15 +1,24 @@
 import styled from "@emotion/styled";
 import moment from "moment";
 import "moment/locale/ko";
-import { Color, FontSize } from "../../styles/theme";
+import { useMoveToPage } from "../../hooks/useRouter";
+import { IUseditem } from "../../src/commons/types/generated/types";
+import { FontSize } from "../../styles/theme";
 
 interface IPropsItem {
-  el: any;
+  el: IUseditem;
 }
 
 const ItemComponent = (props: IPropsItem) => {
+  const { moveToPage } = useMoveToPage();
+  console.log(props.el._id);
+
   return (
-    <ItemWrapperArticle key={props.el.id} id={props.el.id}>
+    <ItemWrapperArticle
+      key={props.el._id}
+      id={props.el._id}
+      onClick={moveToPage(`market/${props.el._id}`)}
+    >
       <ItemImgDiv>
         <ItemImg
           title={props.el.name}

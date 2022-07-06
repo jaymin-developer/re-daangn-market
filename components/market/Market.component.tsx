@@ -12,7 +12,7 @@ import RegionSelect from "./SearchRegion.component";
 const MarketComponent = () => {
   const [region, setRegion] = useState("");
   const { search } = useContext(GlobalContext);
-  const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS, {
+  const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
     variables: { page: 1, search: search || "" },
   });
 
@@ -48,9 +48,13 @@ const MarketComponent = () => {
       </Market.SearchWriteDiv>
       <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
         <Market.ListSection>
-          {data?.fetchUseditems.map((el: IUseditem) => (
-            <ItemComponent el={el} />
-          ))}
+          {data?.fetchUseditems
+            .filter((el: IUseditem) =>
+              el.useditemAddress?.address?.slice(0, 2).includes(region)
+            )
+            .map((el: IUseditem) => (
+              <ItemComponent el={el} />
+            ))}
         </Market.ListSection>
       </InfiniteScroll>
     </Market.WrapperSection>

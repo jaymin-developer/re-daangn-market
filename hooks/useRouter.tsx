@@ -8,7 +8,8 @@ export type IPage =
   | "/market"
   | "/mypage"
   | "/signup"
-  | "/market/new";
+  | "/market/new"
+  | string;
 
 export function useMoveToPage() {
   const router = useRouter();
