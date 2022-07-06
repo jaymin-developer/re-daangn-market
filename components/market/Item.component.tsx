@@ -11,7 +11,6 @@ interface IPropsItem {
 
 const ItemComponent = (props: IPropsItem) => {
   const { moveToPage } = useMoveToPage();
-  console.log(props.el._id);
 
   return (
     <ItemWrapperArticle
@@ -63,7 +62,7 @@ const ItemImgDiv = styled.div`
   overflow: hidden;
 
   border: 1px solid #d3d4d5;
-  border-radius: 8px;
+  border-radius: 12px;
 `;
 
 const ItemImg = styled.img`

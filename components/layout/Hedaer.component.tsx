@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
-import { useContext } from "react";
+import { useRouter } from "next/router";
+import { KeyboardEvent, useContext } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
 import { LOGOUT_USER } from "../../queries/layout/Header.queries";
@@ -11,9 +12,10 @@ import {
 } from "../common/Button.component";
 
 const LayoutHeaderComponent = () => {
+  const router = useRouter();
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
-  const { accessToken } = useContext(GlobalContext);
+  const { accessToken, setSearch } = useContext(GlobalContext);
 
   const onClickLogOut = () => {
     logoutUser();
@@ -21,11 +23,22 @@ const LayoutHeaderComponent = () => {
     window.location.reload();
   };
 
+  const onKeyEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (e.key === "Enter") {
+      setSearch(target.value);
+      router.push("/market");
+    }
+  };
+
   return (
     <Header.WrapperHeader>
       <Header.LogoImg src="/logo-basic.svg" onClick={moveToPage("/")} />
       <Header.SearchBarSpan>
-        <Header.SearchBarInput placeholder="물품을 검색해보세요" />
+        <Header.SearchBarInput
+          placeholder="물품을 검색해보세요"
+          onKeyPress={onKeyEnter}
+        />
       </Header.SearchBarSpan>
       {!accessToken && (
         <Header.WrapperRightDiv>

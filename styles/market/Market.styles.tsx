@@ -28,6 +28,14 @@ export const SearchWriteDiv = styled.div`
   align-items: center;
 `;
 
+export const NoDataDiv = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 export const ListSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

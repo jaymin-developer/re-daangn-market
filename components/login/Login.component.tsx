@@ -75,6 +75,7 @@ const LoginComponent = () => {
       }
     }
   };
+
   if (accessToken) {
     router.push("/market");
   }

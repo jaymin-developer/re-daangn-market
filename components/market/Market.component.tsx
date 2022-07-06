@@ -13,13 +13,13 @@ const MarketComponent = () => {
   const [region, setRegion] = useState("");
   const { search } = useContext(GlobalContext);
   const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
-    variables: { page: 1, search: search || "" },
+    variables: { page: 1, search: search },
   });
 
-  const onLoadMore = () => {
+  const onLoadMore = async () => {
     if (!data) return;
 
-    fetchMore({
+    await fetchMore({
       variables: { page: Math.ceil(data.fetchUseditems.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult.fetchUseditems)
@@ -47,12 +47,22 @@ const MarketComponent = () => {
         <MoveButtonMain name="중고 등록하기" page="/market/new" />
       </Market.SearchWriteDiv>
       <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
+        {!data?.fetchUseditems.length && (
+          <Market.NoDataDiv>검색 결과가 없습니다.</Market.NoDataDiv>
+        )}
+
         <Market.ListSection>
-          {data?.fetchUseditems
-            .filter((el: IUseditem) =>
-              el.useditemAddress?.address?.slice(0, 2).includes(region)
-            )
-            .map((el: IUseditem) => (
+          {/* 지역 설정 시 데이터 */}
+          {region &&
+            data?.fetchUseditems
+              .filter((el: IUseditem) =>
+                el.useditemAddress?.address?.slice(0, 2).includes(region)
+              )
+              .map((el: IUseditem) => <ItemComponent el={el} />)}
+
+          {/* 지역 미설정 시 데이터 */}
+          {!region &&
+            data?.fetchUseditems.map((el: IUseditem) => (
               <ItemComponent el={el} />
             ))}
         </Market.ListSection>
