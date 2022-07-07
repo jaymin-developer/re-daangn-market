@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Empty, Spin } from "antd";
+import { Empty } from "antd";
 import { ChangeEvent, useContext, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { GlobalContext } from "../../pages/_app";
@@ -7,6 +7,7 @@ import { FETCH_USED_ITEMS } from "../../queries/market/Market.queries";
 import { IUseditem } from "../../src/commons/types/generated/types";
 import * as Market from "../../styles/market/Market.styles";
 import { MoveButtonMain } from "../common/Button.component";
+import LoadingComponent from "../common/Loading.component";
 import ItemComponent from "./Item.component";
 import RegionSelect from "./SearchRegion.component";
 
@@ -47,12 +48,7 @@ const MarketComponent = () => {
         <RegionSelect onChangeRegion={onChangeRegion} />
         <MoveButtonMain name="중고 등록하기" page="/market/new" />
       </Market.SearchWriteDiv>
-      {loading && (
-        <Market.NoDataDiv>
-          <Spin size="large" />
-          <div>검색 중입니다.</div>
-        </Market.NoDataDiv>
-      )}
+      {loading && <LoadingComponent content="검색 중입니다." />}
 
       {!loading && (
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>

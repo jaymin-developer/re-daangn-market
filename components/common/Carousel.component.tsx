@@ -21,11 +21,18 @@ const CarouselComponent = (props: IPropsCarousel) => {
 
   return (
     <Carousel {...settings}>
-      {props.images?.map((el) => (
-        <SliderImgBoxDiv>
-          <SliderImg src={`https://storage.googleapis.com/${el}`} />
-        </SliderImgBoxDiv>
-      ))}
+      {props.images
+        ?.filter((el) => el)
+        .map((el) => (
+          <SliderImgBoxDiv>
+            <SliderImg
+              src={`https://storage.googleapis.com/${el}`}
+              onError={(e) => {
+                e.currentTarget.src = "/logo_daangn.png";
+              }}
+            />
+          </SliderImgBoxDiv>
+        ))}
     </Carousel>
   );
 };
@@ -33,7 +40,8 @@ const CarouselComponent = (props: IPropsCarousel) => {
 export default CarouselComponent;
 
 const Carousel = styled(Slider)`
-  width: 644px;
+  max-width: 644px;
+  width: 100%;
 
   .slick-dots {
     transform: translateY(-40px);
@@ -42,7 +50,8 @@ const Carousel = styled(Slider)`
 
 const SliderImgBoxDiv = styled.div`
   width: 100%;
-  height: 500px;
+
+  aspect-ratio: 100% /500px;
   border-radius: 8px;
   overflow: hidden;
 `;

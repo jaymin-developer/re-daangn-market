@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { userInfo } from "os";
 import { KeyboardEvent, useContext, useEffect, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
@@ -48,9 +49,9 @@ const LayoutHeaderComponent = () => {
       localStorage.setItem("UserInfo", JSON.stringify(data.fetchUserLoggedIn));
     }
     if (localStorage.getItem("UserInfo")) {
-      setUserInfo(localStorage.getItem("UserInfo") || {});
+      setUserInfo(data?.fetchUserLoggedIn || {});
     }
-  }, [data]);
+  }, []);
 
   return (
     <Header.WrapperHeader>

@@ -3,7 +3,7 @@ import { Color, FontSize } from "../../theme";
 
 export const WrapperArticle = styled.article`
   width: 100%;
-  padding: 96px 20% 0px;
+  padding: 96px calc((105% - 644px) / 2);
 
   display: flex;
   flex-direction: column;
@@ -11,11 +11,10 @@ export const WrapperArticle = styled.article`
   align-items: center;
 `;
 
-export const CarouselBoxDiv = styled.div``;
-
 export const SellerImage = styled.img`
   width: 40px;
-  height: 40px;
+  aspect-ratio: 1 / 1;
+
   border-radius: 50%;
 `;
 
@@ -44,9 +43,15 @@ export const ItemPickDiv = styled.div`
   align-items: center;
 
   gap: 10px;
+
+  svg {
+    color: ${Color.Main};
+    cursor: pointer;
+  }
 `;
 
 export const SellerNameAddressDiv = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -99,4 +104,27 @@ export const ItemPriceP = styled.p`
 `;
 export const ItemContents = styled.div`
   margin-top: 20px;
+  line-height: 1.5;
+`;
+
+export const InterestedWrapperDiv = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 20px;
+`;
+
+export const InterestedP = styled.p`
+  font-size: 18px;
+`;
+
+export const InterestedItemsDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  gap: 48px;
 `;

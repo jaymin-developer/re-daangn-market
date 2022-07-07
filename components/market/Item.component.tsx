@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import moment from "moment";
 import "moment/locale/ko";
-import { useMoveToPage } from "../../hooks/useRouter";
+import { useRouter } from "next/router";
+import { FormatKRW } from "../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../src/commons/types/generated/types";
 import { FontSize } from "../../styles/theme";
 
@@ -10,13 +11,22 @@ interface IPropsItem {
 }
 
 const ItemComponent = (props: IPropsItem) => {
-  const { moveToPage } = useMoveToPage();
+  const router = useRouter();
+  const onClickMoveToDetail = () => {
+    const basket = JSON.parse(localStorage.getItem("interested") || "[]");
+
+    if (JSON.stringify(localStorage).includes(props.el._id) === false) {
+      basket.push(props.el);
+    }
+    localStorage.setItem("interested", JSON.stringify(basket));
+    router.push(`/market/${props.el._id}`);
+  };
 
   return (
     <ItemWrapperArticle
       key={props.el._id}
       id={props.el._id}
-      onClick={moveToPage(`market/${props.el._id}`)}
+      onClick={onClickMoveToDetail}
     >
       <ItemImgDiv>
         <ItemImg
@@ -29,12 +39,7 @@ const ItemComponent = (props: IPropsItem) => {
         />
       </ItemImgDiv>
       <ItemNameH2>{props.el.name}</ItemNameH2>
-      <ItemPriceDiv>
-        {new Intl.NumberFormat("ko-KR", {
-          style: "currency",
-          currency: "KRW",
-        }).format(props.el.price)}
-      </ItemPriceDiv>
+      <ItemPriceDiv>{FormatKRW(props.el.price)}</ItemPriceDiv>
       <ItemRegionDiv>
         {props.el.useditemAddress?.address
           ? props.el.useditemAddress.address
