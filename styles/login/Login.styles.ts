@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
 export const WrapperDiv = styled.div`
-  max-width: 100%;
-  width: 800px;
+  width: 100%;
   height: 100vh;
 
   display: flex;
@@ -24,8 +23,11 @@ export const LogoImg = styled.img`
 `;
 
 export const LoginBodyDiv = styled.div`
-  margin-top: 20px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 1000px;
 `;
 export const EmailInput = styled.input`
   width: 100%;
@@ -38,7 +40,6 @@ export const EmailInput = styled.input`
 
 export const ErrorMessageDiv = styled.div`
   width: 100%;
-  height: 30px;
   font-size: 12px;
   color: red;
 `;

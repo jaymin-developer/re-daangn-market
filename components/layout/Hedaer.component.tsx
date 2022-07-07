@@ -17,7 +17,7 @@ import {
 
 const LayoutHeaderComponent = () => {
   const router = useRouter();
-  const [clickMenu, setClickMenu] = useState(false);
+  const [clickMenu, setClickMenu] = useState(true);
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
   const { accessToken, setUserInfo, setSearch } = useContext(GlobalContext);
