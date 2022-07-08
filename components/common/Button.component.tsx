@@ -1,10 +1,10 @@
 import { MouseEventHandler } from "react";
-import { IPage, useMoveToPage } from "../../hooks/useRouter";
+import { useMoveToPage } from "../../hooks/useRouter";
 import * as Button from "../../styles/common/Button.styles";
 
 interface IPropsMoveButton {
   name: string;
-  page: IPage;
+  page: string;
 }
 
 interface IPropsFuncButton {

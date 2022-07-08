@@ -50,14 +50,14 @@ const Carousel = styled(Slider)`
 
 const SliderImgBoxDiv = styled.div`
   width: 100%;
+  height: 500px;
 
-  aspect-ratio: 100% /500px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
 `;
 
 const SliderImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: center;
+  object-fit: cover;
 `;

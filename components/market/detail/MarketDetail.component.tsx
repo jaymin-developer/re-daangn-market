@@ -31,12 +31,10 @@ const MarketDetailComponent = () => {
     setInterestedItems(JSON.parse(localStorage.getItem("interested") || "[]"));
   }, []);
 
-  console.log(interestedItems);
-
   return (
     <Detail.WrapperArticle>
       <Head>
-        <title>{itemData?.fetchUseditem.name}</title>
+        <title>{itemData?.fetchUseditem.name} | 당근마켓</title>
         <meta
           name="description"
           content="당근마켓에서 거래되는 최신 중고 매물을 소개합니다."
@@ -54,10 +52,15 @@ const MarketDetailComponent = () => {
       {loading && <LoadingComponent />}
       {!loading && (
         <>
-          <CarouselComponent images={itemData?.fetchUseditem.images} />
+          {itemData?.fetchUseditem.images.length > 0 && (
+            <CarouselComponent images={itemData?.fetchUseditem.images} />
+          )}
+          {!itemData?.fetchUseditem.images.length && (
+            <Detail.SubImg src="/logo_daangn.png" />
+          )}
           <Detail.SellerHeaderDiv>
             <Detail.SellerInfoDiv>
-              <Detail.SellerImage
+              <Detail.SellerImg
                 src={`https://storage.googleapis.com/${itemData?.fetchUseditem.seller.picture}`}
                 onError={(e) => {
                   e.currentTarget.src = "/logo_daangn.png";

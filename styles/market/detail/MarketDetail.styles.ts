@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Color, FontSize } from "../../theme";
+import { Color } from "../../theme";
 
 export const WrapperArticle = styled.article`
   width: 100%;
@@ -11,7 +11,12 @@ export const WrapperArticle = styled.article`
   align-items: center;
 `;
 
-export const SellerImage = styled.img`
+export const SubImg = styled.img`
+  max-width: 644px;
+  width: 100%;
+`;
+
+export const SellerImg = styled.img`
   width: 40px;
   aspect-ratio: 1 / 1;
 

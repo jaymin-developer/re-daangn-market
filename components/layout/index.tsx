@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 import React from "react";
 import LayoutHeaderComponent from "./Hedaer.component";
 
@@ -8,7 +7,6 @@ interface IProps {
 }
 
 const LayoutComponent = (props: IProps) => {
-  const router = useRouter();
   // const HIDDEN = ["/useditems"]
   // const isHidden = HIDDEN.includes(router.asPath)
 

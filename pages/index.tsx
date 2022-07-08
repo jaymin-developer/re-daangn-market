@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMoveToPage } from "../hooks/useRouter";
 import * as Main from "../styles/Main.styles";
 
-const HomePage: NextPage = () => {
+const MainPage: NextPage = () => {
   const { moveToPage } = useMoveToPage();
 
   return (
@@ -83,4 +83,4 @@ const HomePage: NextPage = () => {
   );
 };
 
-export default HomePage;
+export default MainPage;

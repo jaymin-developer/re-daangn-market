@@ -46,7 +46,7 @@ const MarketComponent = () => {
       <Market.HeaderH1>중고거래 최근매물</Market.HeaderH1>
       <Market.SearchWriteDiv>
         <RegionSelect onChangeRegion={onChangeRegion} />
-        <MoveButtonMain name="중고 등록하기" page="/market/new" />
+        <MoveButtonMain name="중고 등록하기" page="/market/write" />
       </Market.SearchWriteDiv>
       {loading && <LoadingComponent content="검색 중입니다." />}
 
