@@ -69,7 +69,7 @@ const LayoutHeaderComponent = () => {
         {!accessToken && (
           <Header.WrapperRightDiv>
             <MoveButtonMain name="로그인" page="/login" />
-            <MoveButtonSub name="회원가입" page="/" />
+            <MoveButtonSub name="회원가입" page="/signup" />
           </Header.WrapperRightDiv>
         )}
         {accessToken && (
