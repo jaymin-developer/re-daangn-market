@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { userInfo } from "os";
 import { KeyboardEvent, useContext, useEffect, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
@@ -21,7 +20,8 @@ const LayoutHeaderComponent = () => {
   const [clickMenu, setClickMenu] = useState(true);
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
-  const { accessToken, setUserInfo, setSearch } = useContext(GlobalContext);
+  const { accessToken, setUserInfo, search, setSearch } =
+    useContext(GlobalContext);
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
@@ -40,7 +40,10 @@ const LayoutHeaderComponent = () => {
     const target = e.target as HTMLInputElement;
     if (e.key === "Enter") {
       setSearch(target.value);
-      router.push("/market");
+      router.push({
+        pathname: "/market",
+        query: { search: target.value },
+      });
     }
   };
 

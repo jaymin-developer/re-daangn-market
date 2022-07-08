@@ -6,5 +6,5 @@ export const WrapperDiv = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding: 96px 0 0;
+  padding: 112px 0 0;
 `;

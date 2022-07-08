@@ -20,6 +20,7 @@
     "@toast-ui/react-editor": "^3.1.7",
     "@types/dompurify": "^2.3.3",
     "antd": "^4.21.5",
+    "antd-img-crop": "^4.2.3",
     "apollo-upload-client": "^17.0.0",
     "dompurify": "^2.3.8",
     "graphql": "^16.5.0",
