@@ -5,6 +5,7 @@ import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { GlobalContext } from "../../pages/_app";
 import { LOGIN_USER } from "../../queries/login/Login.queries";
 import * as Login from "../../styles/login/Login.styles";
+import { FuncButtonMain } from "../common/Button.component";
 
 const LoginComponent = () => {
   const router = useRouter();
@@ -66,7 +67,7 @@ const LoginComponent = () => {
           loginInfo.password
         )
       ) {
-        router.reload();
+        router.push("/market");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -88,10 +89,8 @@ const LoginComponent = () => {
 
   return (
     <Login.WrapperDiv>
-      <Login.LoginHeaderDiv>
-        <Login.LogoImg src="/logo_daangn.png" />
-      </Login.LoginHeaderDiv>
       <Login.LoginBodyDiv onKeyPress={onCheckEnter}>
+        <Login.LogoImg src="/logo-basic.svg" />
         <Login.EmailInput
           type="email"
           placeholder="아이디"
@@ -110,7 +109,7 @@ const LoginComponent = () => {
         <Login.ErrorMessageDiv id="password">
           {passwordError}
         </Login.ErrorMessageDiv>
-        <Login.LoginButton onClick={onClickLogin}>로그인</Login.LoginButton>
+        <FuncButtonMain func={onClickLogin} name="로그인"></FuncButtonMain>
       </Login.LoginBodyDiv>
     </Login.WrapperDiv>
   );

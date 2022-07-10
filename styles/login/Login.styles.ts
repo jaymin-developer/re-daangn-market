@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Color } from "../theme";
 
 export const WrapperDiv = styled.div`
   width: 100%;
@@ -12,6 +13,22 @@ export const WrapperDiv = styled.div`
   padding: 0 20%;
 `;
 
+export const LoginBoxDiv = styled.div`
+  max-width: 500px;
+  width: 100%;
+  padding: 20px 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid ${Color.Main};
+  border-radius: 20px;
+
+  gap: 10px;
+`;
+
 export const LoginHeaderDiv = styled.div`
   width: 100%;
   display: flex;
@@ -19,22 +36,35 @@ export const LoginHeaderDiv = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  width: 70px;
+  margin-bottom: 20px;
 `;
 
 export const LoginBodyDiv = styled.div`
+  width: 100%;
+  max-width: 500px;
+  padding: 20px 40px;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   gap: 10px;
 
-  max-width: 1000px;
+  border: 1px solid ${Color.Main};
+  border-radius: 20px;
 `;
 export const EmailInput = styled.input`
   width: 100%;
+  max-width: 500px;
+
   height: 40px;
+
   padding: 5px 10px;
+
   font-size: 18px;
-  border: 1px solid;
+
+  border: 1px solid #d2d2d2;
   border-radius: 7px;
 `;
 
@@ -44,14 +74,7 @@ export const ErrorMessageDiv = styled.div`
   color: red;
 `;
 
-export const PasswordInput = styled.input`
-  width: 100%;
-  height: 40px;
-  padding: 5px 10px;
-  font-size: 18px;
-  border: 1px solid;
-  border-radius: 7px;
-`;
+export const PasswordInput = styled(EmailInput)``;
 
 export const LoginButton = styled.button`
   width: 100%;
