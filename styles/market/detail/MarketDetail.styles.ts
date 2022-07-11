@@ -3,7 +3,7 @@ import { Color } from "../../theme";
 
 export const WrapperArticle = styled.article`
   width: 100%;
-  padding: 96px calc((105% - 644px) / 2);
+  padding: 96px calc((100% - 644px) / 2);
 
   display: flex;
   flex-direction: column;

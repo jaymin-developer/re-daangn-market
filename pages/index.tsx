@@ -1,10 +1,15 @@
+import { useQuery } from "@apollo/client";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import ItemComponent from "../components/market/Item.component";
 import { useMoveToPage } from "../hooks/useRouter";
+import { FETCH_USED_ITEMS } from "../queries/Main.queries";
+import { IUseditem } from "../src/commons/types/generated/types";
 import * as Main from "../styles/Main.styles";
 
 const MainPage: NextPage = () => {
+  const { data } = useQuery(FETCH_USED_ITEMS);
   const { moveToPage } = useMoveToPage();
 
   return (
@@ -79,6 +84,14 @@ const MainPage: NextPage = () => {
         </Main.TitleBoxDiv>
         <Main.ThirdPageImg srcSet="https://d1unjqcospf8gs.cloudfront.net/assets/home/main/3x/image-2-91a2286453bdf82dea16a7f0ee4ceb9dd325eae0e5a2a9967ba72c344bf8f2fc.webp " />
       </Main.ThirdMainSection>
+      <Main.ForthMainSection>
+        <Main.TitleH1>중고거래 최근매물</Main.TitleH1>
+        <Main.ListSection>
+          {data?.fetchUseditems.slice(0, 8).map((el: IUseditem) => (
+            <ItemComponent el={el} />
+          ))}
+        </Main.ListSection>
+      </Main.ForthMainSection>
     </Main.WrapperDiv>
   );
 };

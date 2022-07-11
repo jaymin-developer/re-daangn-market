@@ -83,3 +83,28 @@ export const ThirdMainSection = styled(FirstMainSection)`
 export const ThirdPageImg = styled.img`
   width: 500px;
 `;
+
+export const ForthMainSection = styled(MainSection)`
+  flex-direction: column;
+  background-color: #f8f9fa;
+
+  position: relative;
+`;
+
+export const TitleH1 = styled.h1`
+  font-size: ${FontSize.MainTitle};
+  font-weight: 700;
+`;
+
+export const ListSection = styled.section`
+  max-width: 1440px;
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  gap: 48px;
+
+  padding: 0px 160px 0px;
+`;
