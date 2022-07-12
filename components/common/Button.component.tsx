@@ -9,7 +9,7 @@ interface IPropsMoveButton {
 
 interface IPropsFuncButton {
   name: string;
-  func: MouseEventHandler<HTMLButtonElement>;
+  func?: MouseEventHandler<HTMLButtonElement> | (() => void);
 }
 
 export const MoveButtonMain = (props: IPropsMoveButton) => {

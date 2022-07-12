@@ -7,14 +7,10 @@ interface IProps {
 }
 
 const LayoutComponent = (props: IProps) => {
-  // const HIDDEN = ["/useditems"]
-  // const isHidden = HIDDEN.includes(router.asPath)
-
   return (
     <LayoutWrapperDiv>
       <LayoutHeaderComponent />
       <BodyWrapperMain>{props.children}</BodyWrapperMain>
-      {/* {isHidden || <LayoutFooter />} */}
     </LayoutWrapperDiv>
   );
 };
