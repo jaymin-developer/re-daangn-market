@@ -1,10 +1,11 @@
 import dynamic from "next/dynamic";
 import * as Write from "../../../styles/market/write/MarketWrite.style";
-import { message, Upload } from "antd";
+import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import React, { useState } from "react";
 import { checkFileValidation } from "../../../src/commons/libraries/validation";
+import { FuncButtonMain, MoveButtonSub } from "../../common/Button.component";
 
 const ToastEditor = dynamic(
   () => import("../../../components/common/ToastEditor.component"),
@@ -33,6 +34,8 @@ const MarketWriteComponent = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  const onClickRegister = () => {};
+
   return (
     <Write.WrapperDiv>
       <ImgCrop rotate>
@@ -48,7 +51,19 @@ const MarketWriteComponent = () => {
           {fileList.length < 5 && "+ Upload"}
         </Upload>
       </ImgCrop>
-      <ToastEditor />
+      <Write.InputBoxDiv>
+        <Write.TitleInput placeholder="글 제목" />
+        <Write.RemarksInput placeholder="한줄평" />
+        <Write.PriceInput placeholder="가격" />
+        <Write.TagsInput placeholder="태그(최대 5개)" />
+      </Write.InputBoxDiv>
+      <Write.ToastEditorBoxDiv>
+        <ToastEditor />
+      </Write.ToastEditorBoxDiv>
+      <Write.HeaderBoxDiv>
+        <MoveButtonSub name="목록으로" page="/market" />
+        <FuncButtonMain name="등록하기" func={onClickRegister} />
+      </Write.HeaderBoxDiv>
     </Write.WrapperDiv>
   );
 };

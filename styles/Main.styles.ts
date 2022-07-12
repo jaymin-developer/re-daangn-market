@@ -84,11 +84,21 @@ export const ThirdPageImg = styled.img`
   width: 500px;
 `;
 
-export const ForthMainSection = styled(MainSection)`
+export const ForthMainSection = styled.div`
+  width: 100%;
+
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   background-color: #f8f9fa;
 
   position: relative;
+
+  gap: 20px;
+
+  padding: 36px;
 `;
 
 export const TitleH1 = styled.h1`
@@ -106,5 +116,5 @@ export const ListSection = styled.section`
 
   gap: 48px;
 
-  padding: 0px 160px 0px;
+  padding: 0px calc(10vw - 36px) 0px;
 `;
