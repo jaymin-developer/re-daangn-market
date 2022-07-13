@@ -3,8 +3,8 @@ import moment from "moment";
 import "moment/locale/ko";
 import { useRouter } from "next/router";
 import { FormatKRW } from "../../src/commons/libraries/getNumberFormat";
-import { IUseditem } from "../../src/commons/types/generated/types";
-import { FontSize } from "../../styles/theme";
+import { IUseditem } from "../../src/types/generated/types";
+import { FontSize } from "../../src/styles/theme";
 
 interface IPropsItem {
   el: IUseditem;
@@ -16,7 +16,7 @@ const ItemComponent = (props: IPropsItem) => {
     const basket = JSON.parse(localStorage.getItem("interested") || "[]");
 
     if (JSON.stringify(localStorage).includes(props.el._id) === false) {
-      basket.push(props.el);
+      basket.unshift(props.el);
     }
     localStorage.setItem("interested", JSON.stringify(basket));
     router.push(`/market/${props.el._id}`);

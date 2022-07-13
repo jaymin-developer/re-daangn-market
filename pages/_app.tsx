@@ -1,4 +1,4 @@
-import "../styles/reset.ts";
+import "../src/styles/reset.ts";
 import "antd/dist/antd.css";
 import {
   ApolloClient,
@@ -20,7 +20,7 @@ import {
 import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 import { createUploadLink } from "apollo-upload-client";
 import { Global } from "@emotion/react";
-import { restStyles } from "../styles/reset";
+import { restStyles } from "../src/styles/reset";
 
 interface IGlobalContext {
   accessToken?: string;

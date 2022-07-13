@@ -1,7 +1,8 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
+import { Editor, EditorProps } from "@toast-ui/react-editor";
+import { RefObject } from "react";
 
-const ToastEditor = () => {
+const ToastEditor = (props: { editorRef: RefObject<Editor> }) => {
   return (
     <Editor
       language="ko"
@@ -11,6 +12,7 @@ const ToastEditor = () => {
       height="500px"
       initialEditType="wysiwyg"
       useCommandShortcut={true}
+      ref={props.editorRef}
     />
   );
 };

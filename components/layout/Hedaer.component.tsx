@@ -6,9 +6,9 @@ import { GlobalContext } from "../../pages/_app";
 import {
   FETCH_USER_LOGGED_IN,
   LOGOUT_USER,
-} from "../../queries/layout/Header.queries";
-import { IQuery } from "../../src/commons/types/generated/types";
-import * as Header from "../../styles/layout/Header.styles";
+} from "../../src/api/layout/Header.queries";
+import { IQuery } from "../../src/types/generated/types";
+import * as Header from "../../src/styles/layout/Header.styles";
 import {
   FuncButtonSub,
   MoveButtonMain,
