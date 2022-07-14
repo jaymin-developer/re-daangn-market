@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const WrapperForm = styled.form`
+export const WrapperDiv = styled.div`
   max-width: 960px;
   width: 100%;
 

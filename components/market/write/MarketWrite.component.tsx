@@ -5,16 +5,12 @@ import React, {
   ChangeEvent,
   KeyboardEvent,
   SetStateAction,
-  useEffect,
   useRef,
   useState,
 } from "react";
 import { FuncButtonMain, MoveButtonSub } from "../../common/Button.component";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import {
   CREATE_USED_ITEM,
   UPDATE_USED_ITEM,
@@ -36,7 +32,11 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   const editorRef = useRef<Editor>(null);
 
-  const [aaa, setAAA] = useState("");
+  const [requiredInfo, setReqieredInfo] = useState<FormValues>({
+    name: "",
+    remarks: "",
+    price: 0,
+  });
   const [images, setImages] = useState<SetStateAction<string[]>>([]);
   const [address, setAddress] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -45,37 +45,15 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .max(20, "최대 20자까지 작성 가능합니다.")
-      .required("상품명은 필수 입력 사항입니다."),
-    price: yup
-      .number()
-      .typeError("숫자만 입력해야합니다.")
-      .required("판매 가격은 필수 입력 사항입니다."),
-    remarks: yup
-      .string()
-      .min(10, "10자 이상 작성해주세요.")
-      .max(100, "100자 까지 작성가능합니다.")
-      .required("한줄평은 필수 입력 사항입니다."),
-    contents: yup
-      .string()
-      .min(10, "설명란에 10자 이상 작성해주세요.")
-      .required("설명란은 필수 입력 사항입니다."),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
-    mode: "onChange",
-    // 리액트 훅 폼과 연결.
-    resolver: yupResolver(schema),
-  });
-
-  const contents = editorRef.current?.getInstance().getHTML();
+  const onChangeRequiredInfo = (e: ChangeEvent<HTMLInputElement>) => {
+    setReqieredInfo((prev) => {
+      return {
+        ...prev,
+        [e.target.id]:
+          e.target.id === "price" ? Number(e.target.value) : e.target.value,
+      };
+    });
+  };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -106,21 +84,20 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
-  const onClickSubmit = async (data: FormValues) => {
-    console.log("aa");
-    if (!(data.name && data.remarks && data.price && contents)) {
+  const onClickSubmit = async () => {
+    const contents = editorRef.current?.getInstance().getHTML();
+    console.log(contents);
+    if (Object.values(requiredInfo).some((el) => el === "")) {
       Modal.warn({ content: "필수 입력 사항입니다!" });
       return;
     }
 
     const writeVariables = {
       createUseditemInput: {
-        name: data.name,
-        remarks: data.remarks,
+        ...requiredInfo,
         contents,
-        price: Number(data.price),
-        images: images,
-        tags: tags,
+        images,
+        tags,
         useditemAddress: {
           address,
         },
@@ -138,19 +115,17 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
-  const onClickUpdate = async (data: FormValues) => {
-    console.log("ff");
+  const onClickUpdate = async () => {
+    const contents = editorRef.current?.getInstance().getHTML();
     try {
       await updateUseditem({
         variables: {
           useditemId: router.query.id,
           updateUseditemInput: {
-            name: data.name,
-            remarks: data.remarks,
-            contents: contents,
-            price: Number(data.price),
-            images: images,
-            tags: tags,
+            ...requiredInfo,
+            contents,
+            images,
+            tags,
           },
         },
       });
@@ -162,18 +137,29 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   };
 
   return (
-    <Write.WrapperForm>
+    <Write.WrapperDiv>
       <Write.InputBoxDiv>
         <Write.TitleInput
+          id="name"
           type="text"
           placeholder="상품명"
-          {...register("name")}
+          onChange={onChangeRequiredInfo}
         />
-        <div>{errors.name?.message}</div>
-        <Write.RemarksInput placeholder="한줄평" {...register("remarks")} />
-        <div>{errors.remarks?.message}</div>
-        <Write.PriceInput placeholder="가격" {...register("price")} />
-        <div>{errors.price?.message}</div>
+        {/* <div>{errors.name?.message}</div> */}
+        <Write.RemarksInput
+          id="remarks"
+          type="text"
+          placeholder="한줄평"
+          onChange={onChangeRequiredInfo}
+        />
+        {/* <div>{errors.remarks?.message}</div> */}
+        <Write.PriceInput
+          id="price"
+          type="number"
+          placeholder="가격"
+          onChange={onChangeRequiredInfo}
+        />
+        {/* <div>{errors.price?.message}</div> */}
         <Write.TagsInput placeholder="태그(최대 5개)" />
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>
@@ -183,7 +169,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         <MoveButtonSub type="button" name="목록으로" page="/market" />
         <FuncButtonMain type="button" name="등록하기" func={onClickSubmit} />
       </Write.HeaderBoxDiv>
-    </Write.WrapperForm>
+    </Write.WrapperDiv>
   );
 };
 
