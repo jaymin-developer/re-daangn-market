@@ -24,7 +24,7 @@ import { restStyles } from "../src/styles/reset";
 
 interface IGlobalContext {
   accessToken?: string;
-  setAccessToken?: Dispatch<SetStateAction<string>>;
+  setAccessToken: Dispatch<SetStateAction<string>>;
   userInfo?: object;
   setUserInfo: Dispatch<SetStateAction<string | object>>;
   search?: string;
@@ -34,6 +34,7 @@ interface IGlobalContext {
 export const GlobalContext = createContext<IGlobalContext>({
   setSearch: String,
   setUserInfo: String || Object,
+  setAccessToken: String,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

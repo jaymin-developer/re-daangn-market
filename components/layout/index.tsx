@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import LayoutHeaderComponent from "./Hedaer.component";
+import LayoutHeaderComponent from "./Header.component";
 
 interface IProps {
   children: React.ReactNode;

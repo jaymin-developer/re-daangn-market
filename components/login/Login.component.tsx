@@ -15,7 +15,7 @@ const LoginComponent = () => {
   });
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const { accessToken } = useContext(GlobalContext);
+  const { accessToken, setAccessToken } = useContext(GlobalContext);
 
   const [loginUser] = useMutation(LOGIN_USER);
 
@@ -42,7 +42,7 @@ const LoginComponent = () => {
 
   const onClickLogin = async () => {
     try {
-      await loginUser({
+      const result = await loginUser({
         variables: {
           email: loginInfo.email,
           password: loginInfo.password,
@@ -67,7 +67,7 @@ const LoginComponent = () => {
           loginInfo.password
         )
       ) {
-        router.push("/market");
+        setAccessToken(result.data.loginUser.accessToken);
       }
     } catch (error) {
       if (error instanceof Error) {
