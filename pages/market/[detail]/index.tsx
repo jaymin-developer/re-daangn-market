@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import MarketDetailComponent from "../../../components/market/detail/MarketDetail.component";
+import QuestionListComponent from "../../../components/market/detail/QuestionList.component";
 import QuestionWriteComponent from "../../../components/market/detail/QuestionWrite.component";
 
 const MarketDetailPage = () => {
@@ -7,6 +8,7 @@ const MarketDetailPage = () => {
     <Wrapper>
       <MarketDetailComponent />
       <QuestionWriteComponent />
+      <QuestionListComponent />
     </Wrapper>
   );
 };
