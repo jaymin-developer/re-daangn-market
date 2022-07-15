@@ -3,7 +3,6 @@ import { Color } from "../../theme";
 
 export const WrapperArticle = styled.article`
   width: 100%;
-  padding: 96px calc((100% - 644px) / 2);
 
   display: flex;
   flex-direction: column;
@@ -121,10 +120,13 @@ export const InterestedWrapperDiv = styled.div`
   gap: 10px;
 
   padding: 20px;
+
+  border-bottom: 1px solid #e9ecef;
 `;
 
 export const InterestedP = styled.p`
   font-size: 18px;
+  font-weight: 700;
 `;
 
 export const InterestedItemsDiv = styled.div`
