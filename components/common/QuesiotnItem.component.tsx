@@ -20,25 +20,25 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
     variables: { useditemId: String(router.query.detail) },
   });
 
-  const onLoadMore = async () => {
-    if (!data) return;
+  // const onLoadMore = async () => {
+  //   if (!data) return;
 
-    await fetchMore({
-      variables: {
-        page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult?.fetchUseditemQuestions)
-          return { fetchUseditemQusetions: [...prev.fetchUseditemQuestions] };
-        return {
-          fetchUseditemQusetions: [
-            ...prev.fetchUseditemQuestions,
-            ...fetchMoreResult.fetchUseditemQuestions,
-          ],
-        };
-      },
-    });
-  };
+  //   await fetchMore({
+  //     variables: {
+  //       page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1,
+  //     },
+  //     updateQuery: (prev, { fetchMoreResult }) => {
+  //       if (!fetchMoreResult?.fetchUseditemQuestions)
+  //         return { fetchUseditemQusetions: [...prev.fetchUseditemQuestions] };
+  //       return {
+  //         fetchUseditemQusetions: [
+  //           ...prev.fetchUseditemQuestions,
+  //           ...fetchMoreResult.fetchUseditemQuestions,
+  //         ],
+  //       };
+  //     },
+  //   });
+  // };
 
   return (
     <QuestionItem.WrapperDiv>
@@ -67,7 +67,7 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
       </QuestionItem.ContentsBoxDiv>
       <QuestionItem.ContentsBoxDiv>
         <QuestionItem.BlankDiv />
-        <AnswerWriteComponent />
+        <AnswerWriteComponent id={props.el._id} />
       </QuestionItem.ContentsBoxDiv>
     </QuestionItem.WrapperDiv>
   );
