@@ -19,20 +19,28 @@ const CarouselComponent = (props: IPropsCarousel) => {
     slidesToScroll: 1,
   };
 
+  console.log(props.images);
+
   return (
     <Carousel {...settings}>
-      {props.images
-        ?.filter((el) => el)
-        .map((el) => (
-          <SliderImgBoxDiv>
-            <SliderImg
-              src={`https://storage.googleapis.com/${el}`}
-              onError={(e) => {
-                e.currentTarget.src = "/logo_daangn.png";
-              }}
-            />
-          </SliderImgBoxDiv>
-        ))}
+      {/* 이미지 없을 때 */}
+      {!(props.images.length > 0) && (
+        <SliderImgBoxDiv>
+          <SliderImg src={`/logo_daangn.png`} />
+        </SliderImgBoxDiv>
+      )}
+
+      {/* 이미지 있을 때 */}
+      {props.images?.map((el) => (
+        <SliderImgBoxDiv>
+          <SliderImg
+            src={`https://storage.googleapis.com/${el}`}
+            onError={(e) => {
+              e.currentTarget.src = "/logo_daangn.png";
+            }}
+          />
+        </SliderImgBoxDiv>
+      ))}
     </Carousel>
   );
 };

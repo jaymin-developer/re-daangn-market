@@ -39,6 +39,7 @@ export const CreatedAtP = styled.p`
 `;
 
 export const ContentsBoxDiv = styled.div`
+  width: 100%;
   display: flex;
 `;
 

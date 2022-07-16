@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { FETCH_USED_ITEM_QUESTIONS } from "../../src/api/market/detail/MarketQuestion.quries";
 import * as QuestionItem from "../../src/styles/common/QuestionItem.styles";
 import { IUseditemQuestion } from "../../src/types/generated/types";
+import AnswerWriteComponent from "../market/detail/AnswerWrite.component";
 import QuestionWriteComponent from "../market/detail/QuestionWrite.component";
 
 interface IPropsQuestionItem {
@@ -63,6 +64,10 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
             <QuestionItemComponent key={el._id} el={el} />
           ))}
         </InfiniteScroll> */}
+      </QuestionItem.ContentsBoxDiv>
+      <QuestionItem.ContentsBoxDiv>
+        <QuestionItem.BlankDiv />
+        <AnswerWriteComponent />
       </QuestionItem.ContentsBoxDiv>
     </QuestionItem.WrapperDiv>
   );

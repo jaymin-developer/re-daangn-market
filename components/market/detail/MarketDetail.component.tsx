@@ -53,7 +53,9 @@ const MarketDetailComponent = () => {
       {!loading && (
         <>
           {itemData?.fetchUseditem.images.length > 0 && (
-            <CarouselComponent images={itemData?.fetchUseditem.images} />
+            <CarouselComponent
+              images={itemData?.fetchUseditem.images.filter((el: string) => el)}
+            />
           )}
           {!itemData?.fetchUseditem.images.length && (
             <Detail.SubImg src="/logo_daangn.png" />
