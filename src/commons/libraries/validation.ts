@@ -1,5 +1,4 @@
 export const checkFileValidation = (file?: File) => {
-  console.log(file);
   if (!file?.size) {
     alert("파일이 없습니다.");
     return;

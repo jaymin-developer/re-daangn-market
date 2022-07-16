@@ -41,18 +41,7 @@ export const CreatedAtP = styled.p`
 export const ContentsBoxDiv = styled.div`
   width: 100%;
   display: flex;
-
-  margin-bottom: 10px;
-`;
-
-export const AnswerItemBoxDiv = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-export const AnswerWriteBoxDiv = styled.div`
-  width: 100%;
-  display: flex;
+  align-items: center;
 `;
 
 export const ContentsColumnBoxDiv = styled.div`
@@ -70,6 +59,8 @@ export const ContentsP = styled.p`
   width: 100%;
 
   display: flex;
+
+  padding-left: 10px;
 
   font-size: 18px;
 `;

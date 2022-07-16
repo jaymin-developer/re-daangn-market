@@ -86,7 +86,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   const onClickSubmit = async () => {
     const contents = editorRef.current?.getInstance().getHTML();
-    console.log(contents);
+
     if (Object.values(requiredInfo).some((el) => el === "")) {
       Modal.warn({ content: "필수 입력 사항입니다!" });
       return;

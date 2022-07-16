@@ -19,8 +19,6 @@ const CarouselComponent = (props: IPropsCarousel) => {
     slidesToScroll: 1,
   };
 
-  console.log(props.images);
-
   return (
     <Carousel {...settings}>
       {/* 이미지 없을 때 */}

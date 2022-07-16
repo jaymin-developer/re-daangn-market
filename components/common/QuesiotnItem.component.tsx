@@ -3,11 +3,16 @@ import moment from "moment";
 import "moment/locale/ko";
 import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroller";
-import { FETCH_USED_ITEM_QUESTIONS } from "../../src/api/market/detail/MarketQuestion.quries";
+import { FETCH_USED_ITEM_QUESTIONS_ANSWERS } from "../../src/api/market/detail/MarketAnswer.quries";
 import * as QuestionItem from "../../src/styles/common/QuestionItem.styles";
-import { IUseditemQuestion } from "../../src/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchUseditemQuestionAnswersArgs,
+  IUseditemQuestion,
+  IUseditemQuestionAnswer,
+} from "../../src/types/generated/types";
 import AnswerWriteComponent from "../market/detail/AnswerWrite.component";
-import QuestionWriteComponent from "../market/detail/QuestionWrite.component";
+import AnswerItemComponent from "./AnswerItem.component";
 
 interface IPropsQuestionItem {
   el: IUseditemQuestion;
@@ -15,30 +20,36 @@ interface IPropsQuestionItem {
 
 const QuestionItemComponent = (props: IPropsQuestionItem) => {
   const router = useRouter();
-
-  const { data, fetchMore } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
-    variables: { useditemId: String(router.query.detail) },
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchUseditemQuestionAnswers">,
+    IQueryFetchUseditemQuestionAnswersArgs
+  >(FETCH_USED_ITEM_QUESTIONS_ANSWERS, {
+    variables: { useditemQuestionId: String(props.el?._id) },
   });
 
-  // const onLoadMore = async () => {
-  //   if (!data) return;
+  const onLoadMore = () => {
+    if (!data) return;
 
-  //   await fetchMore({
-  //     variables: {
-  //       page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1,
-  //     },
-  //     updateQuery: (prev, { fetchMoreResult }) => {
-  //       if (!fetchMoreResult?.fetchUseditemQuestions)
-  //         return { fetchUseditemQusetions: [...prev.fetchUseditemQuestions] };
-  //       return {
-  //         fetchUseditemQusetions: [
-  //           ...prev.fetchUseditemQuestions,
-  //           ...fetchMoreResult.fetchUseditemQuestions,
-  //         ],
-  //       };
-  //     },
-  //   });
-  // };
+    fetchMore({
+      variables: {
+        page: Math.ceil(data?.fetchUseditemQuestionAnswers.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult?.fetchUseditemQuestionAnswers)
+          return {
+            fetchUseditemQuestionAnswers: [
+              ...prev.fetchUseditemQuestionAnswers,
+            ],
+          };
+        return {
+          fetchUseditemQuestionAnswers: [
+            ...prev.fetchUseditemQuestionAnswers,
+            ...fetchMoreResult.fetchUseditemQuestionAnswers,
+          ],
+        };
+      },
+    });
+  };
 
   return (
     <QuestionItem.WrapperDiv>
@@ -59,16 +70,21 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
       <QuestionItem.ContentsBoxDiv>
         <QuestionItem.BlankDiv />
         <QuestionItem.ContentsP>{props.el?.contents}</QuestionItem.ContentsP>
-        {/* <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
-          {data?.fetchUseditemQuestions.map((el: IUseditemQuestion) => (
-            <QuestionItemComponent key={el._id} el={el} />
-          ))}
-        </InfiniteScroll> */}
       </QuestionItem.ContentsBoxDiv>
-      <QuestionItem.ContentsBoxDiv>
+      <QuestionItem.AnswerItemBoxDiv>
+        <QuestionItem.BlankDiv />
+        <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
+          {data?.fetchUseditemQuestionAnswers.map(
+            (el: IUseditemQuestionAnswer) => (
+              <AnswerItemComponent key={el._id} el={el} />
+            )
+          )}
+        </InfiniteScroll>
+      </QuestionItem.AnswerItemBoxDiv>
+      <QuestionItem.AnswerWriteBoxDiv>
         <QuestionItem.BlankDiv />
         <AnswerWriteComponent id={props.el._id} />
-      </QuestionItem.ContentsBoxDiv>
+      </QuestionItem.AnswerWriteBoxDiv>
     </QuestionItem.WrapperDiv>
   );
 };
