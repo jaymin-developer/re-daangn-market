@@ -52,6 +52,10 @@ export const ItemPickDiv = styled.div`
     color: ${Color.Main};
     cursor: pointer;
   }
+
+  .ant-dropdown-trigger {
+    color: ${Color.Main};
+  }
 `;
 
 export const SellerNameAddressDiv = styled.div`

@@ -42,17 +42,22 @@ export const ContentsBoxDiv = styled.div`
   width: 100%;
   display: flex;
 
+  padding-left: 50px;
+
   margin-bottom: 10px;
 `;
 
 export const AnswerItemBoxDiv = styled.div`
   width: 100%;
   display: flex;
+  padding-left: 50px;
 `;
 
 export const AnswerWriteBoxDiv = styled.div`
   width: 100%;
   display: flex;
+
+  padding-left: 50px;
 `;
 
 export const ContentsColumnBoxDiv = styled.div`
@@ -60,10 +65,6 @@ export const ContentsColumnBoxDiv = styled.div`
   flex-direction: column;
 
   gap: 10px;
-`;
-
-export const BlankDiv = styled.div`
-  width: 50px;
 `;
 
 export const ContentsP = styled.p`

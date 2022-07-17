@@ -1,11 +1,11 @@
-import { HeartFilled, HeartOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, MenuOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client";
 import DOMPurify from "isomorphic-dompurify";
 import moment from "moment";
 import "moment/locale/ko";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FETCH_USED_ITEM } from "../../../src/api/market/detail/MarketDetail.queries";
 import { FormatKRW } from "../../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../../src/types/generated/types";
@@ -13,11 +13,29 @@ import * as Detail from "../../../src/styles/market/detail/MarketDetail.styles";
 import CarouselComponent from "../../common/Carousel.component";
 import LoadingComponent from "../../common/Loading.component";
 import ItemComponent from "../Item.component";
+import { Dropdown, Menu } from "antd";
+import { GlobalContext } from "../../../pages/_app";
 
 const MarketDetailComponent = () => {
   const router = useRouter();
+  const { userInfo } = useContext(GlobalContext);
   const [pick, setPick] = useState(false);
   const [interestedItems, setInterestedItems] = useState([]);
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: <a href="https://www.antgroup.com">수정하기</a>,
+          key: "0",
+        },
+        {
+          label: <a href="https://www.aliyun.com">삭제하기</a>,
+          key: "1",
+        },
+      ]}
+    />
+  );
 
   const { data: itemData, loading } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.detail) },
@@ -84,6 +102,11 @@ const MarketDetailComponent = () => {
                 <HeartOutlined onClick={onClickPick} />
               )}
               {itemData?.fetchUseditem.pickedCount}
+              {userInfo?._id === itemData?.fetchUseditem.seller._id && (
+                <Dropdown overlay={menu} trigger={["click"]}>
+                  <a onClick={(e) => e.preventDefault()}>글 관리</a>
+                </Dropdown>
+              )}
             </Detail.ItemPickDiv>
           </Detail.SellerHeaderDiv>
           <Detail.ItemDescDiv>

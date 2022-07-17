@@ -22,24 +22,31 @@ import { createUploadLink } from "apollo-upload-client";
 import { Global } from "@emotion/react";
 import { restStyles } from "../src/styles/reset";
 
+interface IUserInfo {
+  _id?: string;
+  name?: string;
+  email?: string;
+}
+
 interface IGlobalContext {
   accessToken?: string;
   setAccessToken: Dispatch<SetStateAction<string>>;
-  userInfo?: object;
-  setUserInfo: Dispatch<SetStateAction<string | object>>;
+  userInfo?: IUserInfo;
+  setUserInfo: Dispatch<SetStateAction<IUserInfo>>;
   search?: string;
   setSearch: Dispatch<SetStateAction<string>>;
 }
 
 export const GlobalContext = createContext<IGlobalContext>({
   setSearch: String,
-  setUserInfo: String || Object,
+  setUserInfo: Object,
   setAccessToken: String,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAccessToken] = useState("");
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState<IUserInfo>({});
+
   const [search, setSearch] = useState("");
 
   const value = {

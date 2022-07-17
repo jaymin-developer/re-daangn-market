@@ -68,11 +68,9 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
         </QuestionItem.UserNameCreatedAtDiv>
       </QuestionItem.WrapperHeadDiv>
       <QuestionItem.ContentsBoxDiv>
-        <QuestionItem.BlankDiv />
         <QuestionItem.ContentsP>{props.el?.contents}</QuestionItem.ContentsP>
       </QuestionItem.ContentsBoxDiv>
       <QuestionItem.AnswerItemBoxDiv>
-        <QuestionItem.BlankDiv />
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
           {data?.fetchUseditemQuestionAnswers.map(
             (el: IUseditemQuestionAnswer) => (
@@ -82,7 +80,6 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
         </InfiniteScroll>
       </QuestionItem.AnswerItemBoxDiv>
       <QuestionItem.AnswerWriteBoxDiv>
-        <QuestionItem.BlankDiv />
         <AnswerWriteComponent id={props.el._id} />
       </QuestionItem.AnswerWriteBoxDiv>
     </QuestionItem.WrapperDiv>

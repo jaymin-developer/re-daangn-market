@@ -20,8 +20,7 @@ const LayoutHeaderComponent = () => {
   const [clickMenu, setClickMenu] = useState(true);
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
-  const { accessToken, setUserInfo, search, setSearch } =
-    useContext(GlobalContext);
+  const { accessToken, setUserInfo, setSearch } = useContext(GlobalContext);
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
@@ -48,13 +47,9 @@ const LayoutHeaderComponent = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      localStorage.setItem("UserInfo", JSON.stringify(data.fetchUserLoggedIn));
-    }
-    if (localStorage.getItem("UserInfo")) {
-      setUserInfo(data?.fetchUserLoggedIn || {});
-    }
-  }, []);
+    localStorage.setItem("UserInfo", JSON.stringify(data?.fetchUserLoggedIn));
+    setUserInfo(data?.fetchUserLoggedIn || {});
+  }, [accessToken]);
 
   return (
     <Header.WrapperHeader>
