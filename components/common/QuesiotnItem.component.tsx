@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import moment from "moment";
 import "moment/locale/ko";
-import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroller";
 import { FETCH_USED_ITEM_QUESTIONS_ANSWERS } from "../../src/api/market/detail/MarketAnswer.quries";
 import * as QuestionItem from "../../src/styles/common/QuestionItem.styles";
@@ -19,7 +18,6 @@ interface IPropsQuestionItem {
 }
 
 const QuestionItemComponent = (props: IPropsQuestionItem) => {
-  const router = useRouter();
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditemQuestionAnswers">,
     IQueryFetchUseditemQuestionAnswersArgs

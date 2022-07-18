@@ -47,9 +47,13 @@ const LayoutHeaderComponent = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("UserInfo", JSON.stringify(data?.fetchUserLoggedIn));
-    setUserInfo(data?.fetchUserLoggedIn || {});
-  }, [accessToken]);
+    data &&
+      localStorage.setItem("userInfo", JSON.stringify(data?.fetchUserLoggedIn));
+
+    if (localStorage.getItem("userInfo")) {
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo") || ""));
+    }
+  }, []);
 
   return (
     <Header.WrapperHeader>
