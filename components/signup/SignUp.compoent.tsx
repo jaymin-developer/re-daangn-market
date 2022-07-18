@@ -91,7 +91,6 @@ const SignUpComponent = () => {
           },
         });
         Modal.info({ content: "회원가입이 되었습니다. 로그인을 해주세요." });
-        // alert("회원가입이 되었습니다. 로그인을 해주세요.")
         router.push(`/login`);
       } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });

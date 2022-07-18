@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { FontSize } from "../../theme";
 
 export const WrapperDiv = styled.div`
   width: 100%;

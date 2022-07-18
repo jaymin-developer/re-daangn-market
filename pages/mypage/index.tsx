@@ -1,9 +1,7 @@
+import MyPageComponent from "../../components/mypage/Mypage.component";
+
 const MyPagePage = () => {
-  return (
-    <>
-      <div>gd</div>
-    </>
-  );
+  return <MyPageComponent />;
 };
 
 export default MyPagePage;
