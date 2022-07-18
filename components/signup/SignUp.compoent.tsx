@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import * as SignUp from "../../src/styles/signup/SignUp.styles";
-import { CREATE_USER } from "../../src/types/signup/SignUp.types";
+import { CREATE_USER } from "../../src/api/signup/SignUp.queries";
 import { FuncButtonMain } from "../common/Button.component";
 
 const SignUpComponent = () => {
