@@ -64,7 +64,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       const imageUrl = result.data?.uploadFile.url;
       setImages((prev: string[]) => [...prev, imageUrl]);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      error instanceof Error && Modal.error({ content: error.message });
     }
   };
 
@@ -108,10 +108,10 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       const result = await createUseditem({
         variables: writeVariables,
       });
-      alert("제품 등록 성공!");
+      Modal.success({ content: "제품 등록 성공!" });
       router.push(`/market/${result.data.createUseditem._id}`);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      error instanceof Error && Modal.error({ content: error.message });
     }
   };
 
@@ -132,7 +132,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       Modal.success({ content: "수정이 완료되었습니다." });
       router.push(`/useditems/${router.query.id}`);
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
+      error instanceof Error && Modal.error({ content: error.message });
     }
   };
 

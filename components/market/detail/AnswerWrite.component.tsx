@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import { ChangeEvent, useState } from "react";
 import {
   CREATE_USED_ITEM_QUESTION_ANSWER,
@@ -23,7 +24,7 @@ const AnswerWriteComponent = (props: IPropsAnswerWrite) => {
 
   async function onClickWrite() {
     if (contents.length === 0) {
-      alert("누락된 내용이 있는지 확인해주세요.");
+      Modal.info({ content: "누락된 내용이 있는지 확인해주세요." });
       return;
     }
 
@@ -45,9 +46,9 @@ const AnswerWriteComponent = (props: IPropsAnswerWrite) => {
             },
           ],
         });
-        alert("답글 등록이 완료됐습니다.");
+        Modal.success({ content: "답글 등록이 완료됐습니다." });
       } catch (error) {
-        if (error instanceof Error) alert(error.message);
+        error instanceof Error && Modal.error({ content: error.message });
       }
     }
   }

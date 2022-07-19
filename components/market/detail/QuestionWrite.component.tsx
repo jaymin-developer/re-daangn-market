@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import {
@@ -22,7 +23,7 @@ const QuestionWriteComponent = () => {
 
   const onClickQuestionWrite = async () => {
     if (contents.length === 0) {
-      alert("누락된 내용이 있는지 확인해주세요.");
+      Modal.error({ content: "누락된 내용이 있는지 확인해주세요." });
       return;
     }
 
@@ -41,11 +42,31 @@ const QuestionWriteComponent = () => {
           },
         ],
       });
-      alert("댓글 등록이 완료됐습니다.");
+      Modal.success({ content: "댓글 등록이 완료됐습니다." });
     } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
+      error instanceof Error && Modal.error({ content: error.message });
+    }
+  };
+
+  const onClickUpdate = async (data: FormValues) => {
+    try {
+      await updateUseditem({
+        variables: {
+          useditemId: router.query.id,
+          updateUseditemInput: {
+            name: data.name,
+            remarks: data.remarks,
+            contents: data.contents,
+            price: Number(data.price),
+            // images: images,
+            // tags: tags,
+          },
+        },
+      });
+      Modal.success({ content: "수정이 완료되었습니다." });
+      router.push(`/useditems/${router.query.id}`);
+    } catch (error) {
+      error instanceof Error && Modal.error({ content: error.message });
     }
   };
 

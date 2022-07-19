@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../pages/_app";
@@ -13,7 +14,7 @@ export const useAuth =
         if (!accessToken) {
           const newAccessToken = await getAccessToken();
           if (!newAccessToken) {
-            alert("로그인을 먼저 해주세요!!!");
+            Modal.info({ content: "로그인을 먼저 해주세요!!!" });
             router.push("/login");
           }
         }

@@ -32,7 +32,7 @@ const LayoutHeaderComponent = () => {
 
   const onClickLogOut = () => {
     logoutUser();
-    Modal.info({ content: "로그아웃이 됐습니다." });
+    Modal.success({ content: "로그아웃이 됐습니다." });
     window.location.reload();
   };
 

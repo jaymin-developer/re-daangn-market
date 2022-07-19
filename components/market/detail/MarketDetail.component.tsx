@@ -39,18 +39,22 @@ const MarketDetailComponent = () => {
       await deleteUseditem({
         variables: { useditemId: String(router.query.detail) },
       });
-      Modal.info({ content: "삭제가 완료되었습니다." });
+      Modal.success({ content: "삭제가 완료되었습니다." });
       router.push("/market");
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
+      error instanceof Error && Modal.error({ content: error.message });
     }
+  };
+
+  const onClickMoveEdit = () => {
+    router.push(`${router.query.detail}/edit`);
   };
 
   const menu = (
     <Menu
       items={[
         {
-          label: <div>수정하기</div>,
+          label: <div onClick={onClickMoveEdit}>수정하기</div>,
           key: "0",
         },
         {
