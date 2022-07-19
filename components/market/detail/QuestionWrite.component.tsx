@@ -1,16 +1,23 @@
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import {
   CREATE_USED_ITEM_QUESTION,
   FETCH_USED_ITEM_QUESTIONS,
   UPDATE_USED_ITEM_QUESTION,
 } from "../../../src/api/market/detail/MarketQuestion.quries";
 import * as QuestionWrite from "../../../src/styles/market/detail/QuestionWrite.styles";
+import { IUseditemQuestion } from "../../../src/types/generated/types";
 import { FuncButtonMain } from "../../common/Button.component";
 
-const QuestionWriteComponent = () => {
+interface IPropsQuestionWrite {
+  el?: IUseditemQuestion;
+  edit?: boolean;
+  setEdit: Dispatch<SetStateAction<boolean>>;
+}
+
+const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
   const router = useRouter();
   const [contents, setContents] = useState("");
 
@@ -48,38 +55,53 @@ const QuestionWriteComponent = () => {
     }
   };
 
-  const onClickUpdate = async (data: FormValues) => {
+  const onClickUpdate = async () => {
+    if (contents.length === 0) {
+      Modal.error({ content: "누락된 내용이 있는지 확인해주세요." });
+      return;
+    }
+
     try {
-      await updateUseditem({
+      await updateUseditemQuestion({
         variables: {
-          useditemId: router.query.id,
-          updateUseditemInput: {
-            name: data.name,
-            remarks: data.remarks,
-            contents: data.contents,
-            price: Number(data.price),
-            // images: images,
-            // tags: tags,
+          updateUseditemQuestionInput: {
+            contents,
           },
+          useditemQuestionId: props.el?._id,
         },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM_QUESTIONS,
+            variables: { useditemId: router.query.detail },
+          },
+        ],
       });
-      Modal.success({ content: "수정이 완료되었습니다." });
-      router.push(`/useditems/${router.query.id}`);
+      Modal.success({ content: "댓글 수정이 완료됐습니다." });
+      props.setEdit(false);
     } catch (error) {
       error instanceof Error && Modal.error({ content: error.message });
     }
   };
 
+  console.log(props.el?.contents);
+
   return (
     <QuestionWrite.WrapperDiv>
-      <QuestionWrite.NameP>댓글</QuestionWrite.NameP>
+      <QuestionWrite.NameP>
+        {props.edit ? "댓글 수정" : "댓글"}
+      </QuestionWrite.NameP>
       <QuestionWrite.ContentsBoxDiv>
         <QuestionWrite.ContentsTextArea
           maxLength={100}
           placeholder="댓글은 100자로 제한됩니다."
           onChange={onChangeContents}
+          defaultValue={props.el?.contents}
         />
-        <FuncButtonMain name="등록" func={onClickQuestionWrite} />
+        {props.edit ? (
+          <FuncButtonMain name="수정" func={onClickUpdate} />
+        ) : (
+          <FuncButtonMain name="등록" func={onClickQuestionWrite} />
+        )}
       </QuestionWrite.ContentsBoxDiv>
     </QuestionWrite.WrapperDiv>
   );

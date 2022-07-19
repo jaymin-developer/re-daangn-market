@@ -1,4 +1,4 @@
-import { HeartFilled, HeartOutlined, MenuOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import DOMPurify from "isomorphic-dompurify";
 import moment from "moment";
@@ -88,6 +88,7 @@ const MarketDetailComponent = () => {
         ></meta>
       </Head>
       {loading && <LoadingComponent />}
+
       {!loading && (
         <>
           {itemData?.fetchUseditem.images.length > 0 && (
@@ -121,6 +122,7 @@ const MarketDetailComponent = () => {
               ) : (
                 <HeartOutlined onClick={onClickPick} />
               )}
+
               {itemData?.fetchUseditem.pickedCount}
               {userInfo?._id === itemData?.fetchUseditem.seller._id && (
                 <Dropdown overlay={menu} trigger={["click"]}>

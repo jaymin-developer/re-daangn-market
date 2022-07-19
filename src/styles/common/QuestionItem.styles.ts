@@ -13,7 +13,8 @@ export const WrapperDiv = styled.div`
 `;
 
 export const WrapperHeadDiv = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
   align-items: center;
 `;
 
