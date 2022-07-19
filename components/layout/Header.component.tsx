@@ -14,6 +14,7 @@ import {
   MoveButtonMain,
   MoveButtonSub,
 } from "../common/Button.component";
+import { Modal } from "antd";
 
 const LayoutHeaderComponent = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const LayoutHeaderComponent = () => {
 
   const onClickLogOut = () => {
     logoutUser();
-    alert("로그아웃이 됐습니다.");
+    Modal.info({ content: "로그아웃이 됐습니다." });
     window.location.reload();
   };
 

@@ -1,19 +1,22 @@
 import { HeartFilled, HeartOutlined, MenuOutlined } from "@ant-design/icons";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import DOMPurify from "isomorphic-dompurify";
 import moment from "moment";
 import "moment/locale/ko";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { FETCH_USED_ITEM } from "../../../src/api/market/detail/MarketDetail.queries";
+import {
+  DELETE_USED_ITEM,
+  FETCH_USED_ITEM,
+} from "../../../src/api/market/detail/MarketDetail.queries";
 import { FormatKRW } from "../../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../../src/types/generated/types";
 import * as Detail from "../../../src/styles/market/detail/MarketDetail.styles";
 import CarouselComponent from "../../common/Carousel.component";
 import LoadingComponent from "../../common/Loading.component";
 import ItemComponent from "../Item.component";
-import { Dropdown, Menu } from "antd";
+import { Dropdown, Menu, Modal } from "antd";
 import { GlobalContext } from "../../../pages/_app";
 
 const MarketDetailComponent = () => {
@@ -21,21 +24,7 @@ const MarketDetailComponent = () => {
   const { userInfo } = useContext(GlobalContext);
   const [pick, setPick] = useState(false);
   const [interestedItems, setInterestedItems] = useState([]);
-
-  const menu = (
-    <Menu
-      items={[
-        {
-          label: <a href="https://www.antgroup.com">수정하기</a>,
-          key: "0",
-        },
-        {
-          label: <a href="https://www.aliyun.com">삭제하기</a>,
-          key: "1",
-        },
-      ]}
-    />
-  );
+  const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
 
   const { data: itemData, loading } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.detail) },
@@ -44,6 +33,33 @@ const MarketDetailComponent = () => {
   const onClickPick = () => {
     setPick((prev) => !prev);
   };
+
+  const onClickDelete = async () => {
+    try {
+      await deleteUseditem({
+        variables: { useditemId: String(router.query.detail) },
+      });
+      Modal.info({ content: "삭제가 완료되었습니다." });
+      router.push("/market");
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
+  };
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: <div>수정하기</div>,
+          key: "0",
+        },
+        {
+          label: <div onClick={onClickDelete}>삭제하기</div>,
+          key: "1",
+        },
+      ]}
+    />
+  );
 
   useEffect(() => {
     setInterestedItems(JSON.parse(localStorage.getItem("interested") || "[]"));
