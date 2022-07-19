@@ -6,10 +6,7 @@ import "moment/locale/ko";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import {
-  DELETE_USED_ITEM,
-  FETCH_USED_ITEM,
-} from "../../../src/api/market/detail/MarketDetail.queries";
+import { DELETE_USED_ITEM, FETCH_USED_ITEM } from "../../../src/api/market/detail/MarketDetail.queries";
 import { FormatKRW } from "../../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../../src/types/generated/types";
 import * as Detail from "../../../src/styles/market/detail/MarketDetail.styles";
@@ -73,15 +70,9 @@ const MarketDetailComponent = () => {
     <Detail.WrapperArticle>
       <Head>
         <title>{itemData?.fetchUseditem.name} | 당근마켓</title>
-        <meta
-          name="description"
-          content="당근마켓에서 거래되는 최신 중고 매물을 소개합니다."
-        ></meta>
+        <meta name="description" content="당근마켓에서 거래되는 최신 중고 매물을 소개합니다."></meta>
         <meta property="og:title" content={itemData?.fetchUseditem.name}></meta>
-        <meta
-          property="og:description"
-          content={itemData?.fetchUseditem.remarks}
-        ></meta>
+        <meta property="og:description" content={itemData?.fetchUseditem.remarks}></meta>
         <meta
           property="og:image"
           content={`https://storage.googleapis.com/${itemData?.fetchUseditem.seller.picture}`}
@@ -92,13 +83,9 @@ const MarketDetailComponent = () => {
       {!loading && (
         <>
           {itemData?.fetchUseditem.images.length > 0 && (
-            <CarouselComponent
-              images={itemData?.fetchUseditem.images.filter((el: string) => el)}
-            />
+            <CarouselComponent images={itemData?.fetchUseditem.images.filter((el: string) => el)} />
           )}
-          {!itemData?.fetchUseditem.images.length && (
-            <Detail.SubImg src="/logo_daangn.png" />
-          )}
+          {!itemData?.fetchUseditem.images.length && <Detail.SubImg src="/logo_daangn.png" />}
           <Detail.SellerHeaderDiv>
             <Detail.SellerInfoDiv>
               <Detail.SellerImg
@@ -108,20 +95,12 @@ const MarketDetailComponent = () => {
                 }}
               />
               <Detail.SellerNameAddressDiv>
-                <Detail.SellerNameDiv>
-                  {itemData?.fetchUseditem.seller.name}
-                </Detail.SellerNameDiv>
-                <Detail.SellerAddressDiv>
-                  {itemData?.fetchUseditem.useditemAddress?.address}
-                </Detail.SellerAddressDiv>
+                <Detail.SellerNameDiv>{itemData?.fetchUseditem.seller.name}</Detail.SellerNameDiv>
+                <Detail.SellerAddressDiv>{itemData?.fetchUseditem.useditemAddress?.address}</Detail.SellerAddressDiv>
               </Detail.SellerNameAddressDiv>
             </Detail.SellerInfoDiv>
             <Detail.ItemPickDiv>
-              {pick ? (
-                <HeartFilled onClick={onClickPick} />
-              ) : (
-                <HeartOutlined onClick={onClickPick} />
-              )}
+              {pick ? <HeartFilled onClick={onClickPick} /> : <HeartOutlined onClick={onClickPick} />}
 
               {itemData?.fetchUseditem.pickedCount}
               {userInfo?._id === itemData?.fetchUseditem.seller._id && (
@@ -137,21 +116,13 @@ const MarketDetailComponent = () => {
                 return <div>{el.slice(1)}</div>;
               })}
             </Detail.ItemTagsDiv>
-            <Detail.ItemNameH1>
-              {itemData?.fetchUseditem.name}
-            </Detail.ItemNameH1>
-            <Detail.ItemCreatedAtP>
-              {moment(itemData?.fetchUseditem.createdAt).format("LLL")}
-            </Detail.ItemCreatedAtP>
-            <Detail.ItemPriceP>
-              {FormatKRW(itemData?.fetchUseditem.price).slice(1)}원
-            </Detail.ItemPriceP>
+            <Detail.ItemNameH1>{itemData?.fetchUseditem.name}</Detail.ItemNameH1>
+            <Detail.ItemCreatedAtP>{moment(itemData?.fetchUseditem.createdAt).format("LLL")}</Detail.ItemCreatedAtP>
+            <Detail.ItemPriceP>{FormatKRW(itemData?.fetchUseditem.price).slice(1)}원</Detail.ItemPriceP>
 
             <Detail.ItemContents
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  String(itemData?.fetchUseditem.contents)
-                ),
+                __html: DOMPurify.sanitize(String(itemData?.fetchUseditem.contents)),
               }}
             />
           </Detail.ItemDescDiv>

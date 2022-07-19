@@ -44,8 +44,7 @@ export const MenuP = styled.p`
   font-size: 18px;
   font-weight: 500;
 
-  color: ${(props: IPropsMenuDiv) =>
-    props.clickMenu === true && `${Color.Main}`};
+  color: ${(props: IPropsMenuDiv) => props.clickMenu === true && `${Color.Main}`};
 
   cursor: pointer;
 `;

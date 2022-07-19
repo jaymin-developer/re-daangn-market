@@ -14,9 +14,7 @@ interface IPropsAnswerWrite {
 
 const AnswerWriteComponent = (props: IPropsAnswerWrite) => {
   const [contents, setContents] = useState("");
-  const [createUsedItemQuestionAnswer] = useMutation(
-    CREATE_USED_ITEM_QUESTION_ANSWER
-  );
+  const [createUsedItemQuestionAnswer] = useMutation(CREATE_USED_ITEM_QUESTION_ANSWER);
 
   const onChangeContents = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(e.target.value);

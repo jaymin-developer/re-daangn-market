@@ -11,11 +11,7 @@ export const checkFileValidation = (file?: File) => {
     return;
   }
 
-  if (
-    !file.type.includes("jpg") &&
-    !file.type.includes("jpeg") &&
-    !file.type.includes("png")
-  ) {
+  if (!file.type.includes("jpg") && !file.type.includes("jpeg") && !file.type.includes("png")) {
     Modal.error({
       content: "jpg, jpeg 파일 또는 png 파일만 업로드 가능합니다",
     });

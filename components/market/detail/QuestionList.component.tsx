@@ -24,10 +24,7 @@ const QuestionListComponent = () => {
         if (!fetchMoreResult?.fetchUseditemQuestions)
           return { fetchUseditemQusetions: [...prev.fetchUseditemQuestions] };
         return {
-          fetchUseditemQusetions: [
-            ...prev.fetchUseditemQuestions,
-            ...fetchMoreResult.fetchUseditemQuestions,
-          ],
+          fetchUseditemQusetions: [...prev.fetchUseditemQuestions, ...fetchMoreResult.fetchUseditemQuestions],
         };
       },
     });

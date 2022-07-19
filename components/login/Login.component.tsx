@@ -32,9 +32,7 @@ const LoginComponent = () => {
     // 패스워드 검증 후 에러 메시지
     if (
       e.target.type === "password" &&
-      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-        e.target.value
-      )
+      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(e.target.value)
     ) {
       setPasswordError("");
     }
@@ -52,20 +50,12 @@ const LoginComponent = () => {
         setEmailError("올바른 이메일 형식이 아닙니다.");
       }
 
-      if (
-        /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-          loginInfo.password
-        ) === false
-      ) {
-        setPasswordError(
-          "8~16자의 영문,숫자,특수 문자의 조합하여 작성해주세요."
-        );
+      if (/^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(loginInfo.password) === false) {
+        setPasswordError("8~16자의 영문,숫자,특수 문자의 조합하여 작성해주세요.");
       }
       if (
         /^\w+@\w+\.\w+$/.test(loginInfo.email) &&
-        /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-          loginInfo.password
-        )
+        /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(loginInfo.password)
       ) {
         setAccessToken(result.data.loginUser.accessToken);
       }
@@ -106,9 +96,7 @@ const LoginComponent = () => {
           value={loginInfo.password}
           required
         ></Login.PasswordInput>
-        <Login.ErrorMessageDiv id="password">
-          {passwordError}
-        </Login.ErrorMessageDiv>
+        <Login.ErrorMessageDiv id="password">{passwordError}</Login.ErrorMessageDiv>
         <FuncButtonMain func={onClickLogin} name="로그인"></FuncButtonMain>
       </Login.LoginBodyDiv>
     </Login.WrapperDiv>

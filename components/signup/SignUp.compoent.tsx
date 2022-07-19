@@ -16,9 +16,7 @@ const SignUpComponent = () => {
   });
   const [emailError, setEmailError] = useState("");
   const [nameError, setNameError] = useState("");
-  const [passwordError, setPasswordError] = useState(
-    "8~16자의 영문,숫자,특수 문자의 조합하여 작성해주세요."
-  );
+  const [passwordError, setPasswordError] = useState("8~16자의 영문,숫자,특수 문자의 조합하여 작성해주세요.");
   const [checkPasswordError, setCheckPasswordError] = useState("");
 
   const [createUser] = useMutation(CREATE_USER);
@@ -32,21 +30,15 @@ const SignUpComponent = () => {
     e.target.id === "name" && e.target.value !== "" && setNameError("");
 
     // 이메일 검증 후 에러 메세지
-    e.target.id === "email" &&
-      /^\w+@\w+\.\w+$/.test(e.target.value) &&
-      setEmailError("");
+    e.target.id === "email" && /^\w+@\w+\.\w+$/.test(e.target.value) && setEmailError("");
 
     // 패스워드 검증 후 에러 메시지
     e.target.id === "password" &&
-      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-        e.target.value
-      ) &&
+      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(e.target.value) &&
       setPasswordError("");
 
     e.target.id === "checkPassword" &&
-      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-        e.target.value
-      ) &&
+      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(e.target.value) &&
       e.target.value === signUpInfo.password &&
       setPasswordError("");
   };
@@ -60,25 +52,18 @@ const SignUpComponent = () => {
       setNameError("이름을 입력해주세요.");
     }
 
-    if (
-      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-        signUpInfo.password
-      ) === false
-    ) {
+    if (/^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(signUpInfo.password) === false) {
       setPasswordError("8~16자의 영문,숫자,특수 문자의 조합하여 작성해주세요.");
     }
 
-    signUpInfo.checkPassword !== signUpInfo.password &&
-      setCheckPasswordError("비밀번호와 일치하지 않습니다.");
+    signUpInfo.checkPassword !== signUpInfo.password && setCheckPasswordError("비밀번호와 일치하지 않습니다.");
 
     if (
       signUpInfo.name &&
       signUpInfo.password &&
       signUpInfo.checkPassword === signUpInfo.password &&
       /^\w+@\w+\.\w+$/.test(signUpInfo.email) &&
-      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(
-        signUpInfo.password
-      )
+      /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/.test(signUpInfo.password)
     ) {
       try {
         await createUser({

@@ -87,9 +87,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
 
   return (
     <QuestionWrite.WrapperDiv>
-      <QuestionWrite.NameP>
-        {props.edit ? "댓글 수정" : "댓글"}
-      </QuestionWrite.NameP>
+      <QuestionWrite.NameP>{props.edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>
       <QuestionWrite.ContentsBoxDiv>
         <QuestionWrite.ContentsTextArea
           maxLength={100}

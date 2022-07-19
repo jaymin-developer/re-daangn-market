@@ -3,17 +3,10 @@ import { useRouter } from "next/router";
 import { KeyboardEvent, useContext, useEffect, useState } from "react";
 import { useMoveToPage } from "../../hooks/useRouter";
 import { GlobalContext } from "../../pages/_app";
-import {
-  FETCH_USER_LOGGED_IN,
-  LOGOUT_USER,
-} from "../../src/api/layout/Header.queries";
+import { FETCH_USER_LOGGED_IN, LOGOUT_USER } from "../../src/api/layout/Header.queries";
 import { IQuery } from "../../src/types/generated/types";
 import * as Header from "../../src/styles/layout/Header.styles";
-import {
-  FuncButtonSub,
-  MoveButtonMain,
-  MoveButtonSub,
-} from "../common/Button.component";
+import { FuncButtonSub, MoveButtonMain, MoveButtonSub } from "../common/Button.component";
 import { Modal } from "antd";
 
 const LayoutHeaderComponent = () => {
@@ -22,8 +15,7 @@ const LayoutHeaderComponent = () => {
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { moveToPage } = useMoveToPage();
   const { accessToken, setUserInfo, setSearch } = useContext(GlobalContext);
-  const { data } =
-    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  const { data } = useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   const onClickMenu = () => {
     setClickMenu(true);
@@ -48,8 +40,7 @@ const LayoutHeaderComponent = () => {
   };
 
   useEffect(() => {
-    data &&
-      localStorage.setItem("userInfo", JSON.stringify(data?.fetchUserLoggedIn));
+    data && localStorage.setItem("userInfo", JSON.stringify(data?.fetchUserLoggedIn));
 
     if (localStorage.getItem("userInfo")) {
       setUserInfo(JSON.parse(localStorage.getItem("userInfo") || ""));
@@ -64,10 +55,7 @@ const LayoutHeaderComponent = () => {
           중고거래
         </Header.MenuP>
         <Header.SearchBarSpan>
-          <Header.SearchBarInput
-            placeholder="물품을 검색해보세요"
-            onKeyPress={onKeyEnter}
-          />
+          <Header.SearchBarInput placeholder="물품을 검색해보세요" onKeyPress={onKeyEnter} />
         </Header.SearchBarSpan>
         {!accessToken && (
           <Header.WrapperRightDiv>

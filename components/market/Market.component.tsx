@@ -24,14 +24,10 @@ const MarketComponent = () => {
     await fetchMore({
       variables: { page: Math.ceil(data.fetchUseditems.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchUseditems)
-          return { fetchUseditems: [...prev.fetchUseditems] };
+        if (!fetchMoreResult.fetchUseditems) return { fetchUseditems: [...prev.fetchUseditems] };
 
         return {
-          fetchUseditems: [
-            ...prev.fetchUseditems,
-            ...fetchMoreResult.fetchUseditems,
-          ],
+          fetchUseditems: [...prev.fetchUseditems, ...fetchMoreResult.fetchUseditems],
         };
       },
     });
@@ -62,16 +58,11 @@ const MarketComponent = () => {
             {/* 지역 설정 시 데이터 */}
             {region &&
               data?.fetchUseditems
-                .filter((el: IUseditem) =>
-                  el.useditemAddress?.address?.slice(0, 2).includes(region)
-                )
+                .filter((el: IUseditem) => el.useditemAddress?.address?.slice(0, 2).includes(region))
                 .map((el: IUseditem) => <ItemComponent el={el} />)}
 
             {/* 지역 미설정 시 데이터 */}
-            {!region &&
-              data?.fetchUseditems.map((el: IUseditem) => (
-                <ItemComponent el={el} />
-              ))}
+            {!region && data?.fetchUseditems.map((el: IUseditem) => <ItemComponent el={el} />)}
           </Market.ListSection>
         </InfiniteScroll>
       )}

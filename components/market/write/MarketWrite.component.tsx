@@ -1,31 +1,15 @@
 import dynamic from "next/dynamic";
 import * as Write from "../../../src/styles/market/write/MarketWrite.style";
 import { Modal } from "antd";
-import React, {
-  ChangeEvent,
-  KeyboardEvent,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import React, { ChangeEvent, KeyboardEvent, SetStateAction, useRef, useState } from "react";
 import { FuncButtonMain, MoveButtonSub } from "../../common/Button.component";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import {
-  CREATE_USED_ITEM,
-  UPDATE_USED_ITEM,
-  UPLOAD_FILE,
-} from "../../../src/api/market/write/MarketWrite.qureies";
-import {
-  FormValues,
-  IPropsMarketWrite,
-} from "../../../src/types/market/write/MarketWrite.types";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM, UPLOAD_FILE } from "../../../src/api/market/write/MarketWrite.qureies";
+import { FormValues, IPropsMarketWrite } from "../../../src/types/market/write/MarketWrite.types";
 import { Editor } from "@toast-ui/react-editor";
 
-const ToastEditor = dynamic(
-  () => import("../../../components/common/ToastEditor.component"),
-  { ssr: false }
-);
+const ToastEditor = dynamic(() => import("../../../components/common/ToastEditor.component"), { ssr: false });
 
 const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const router = useRouter();
@@ -49,8 +33,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     setReqieredInfo((prev) => {
       return {
         ...prev,
-        [e.target.id]:
-          e.target.id === "price" ? Number(e.target.value) : e.target.value,
+        [e.target.id]: e.target.id === "price" ? Number(e.target.value) : e.target.value,
       };
     });
   };
@@ -73,12 +56,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   };
 
   const onKeyUpTags = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (
-      event.key === "Enter" &&
-      tag.includes("#") &&
-      tags.includes(tag) === false &&
-      tags.length < 5
-    ) {
+    if (event.key === "Enter" && tag.includes("#") && tags.includes(tag) === false && tags.length < 5) {
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
@@ -139,26 +117,11 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   return (
     <Write.WrapperDiv>
       <Write.InputBoxDiv>
-        <Write.TitleInput
-          id="name"
-          type="text"
-          placeholder="상품명"
-          onChange={onChangeRequiredInfo}
-        />
+        <Write.TitleInput id="name" type="text" placeholder="상품명" onChange={onChangeRequiredInfo} />
         {/* <div>{errors.name?.message}</div> */}
-        <Write.RemarksInput
-          id="remarks"
-          type="text"
-          placeholder="한줄평"
-          onChange={onChangeRequiredInfo}
-        />
+        <Write.RemarksInput id="remarks" type="text" placeholder="한줄평" onChange={onChangeRequiredInfo} />
         {/* <div>{errors.remarks?.message}</div> */}
-        <Write.PriceInput
-          id="price"
-          type="number"
-          placeholder="가격"
-          onChange={onChangeRequiredInfo}
-        />
+        <Write.PriceInput id="price" type="number" placeholder="가격" onChange={onChangeRequiredInfo} />
         {/* <div>{errors.price?.message}</div> */}
         <Write.TagsInput placeholder="태그(최대 5개)" />
       </Write.InputBoxDiv>

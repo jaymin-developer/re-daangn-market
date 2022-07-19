@@ -89,9 +89,7 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult?.fetchUseditemQuestionAnswers)
           return {
-            fetchUseditemQuestionAnswers: [
-              ...prev.fetchUseditemQuestionAnswers,
-            ],
+            fetchUseditemQuestionAnswers: [...prev.fetchUseditemQuestionAnswers],
           };
         return {
           fetchUseditemQuestionAnswers: [
@@ -114,9 +112,7 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
         />
         <QuestionItem.UserNameCreatedAtDiv>
           <QuestionItem.UserNameP>{props.el?.user.name}</QuestionItem.UserNameP>
-          <QuestionItem.CreatedAtP>
-            {moment(props.el?.createdAt).format("LLL")}
-          </QuestionItem.CreatedAtP>
+          <QuestionItem.CreatedAtP>{moment(props.el?.createdAt).format("LLL")}</QuestionItem.CreatedAtP>
         </QuestionItem.UserNameCreatedAtDiv>
         <Dropdown overlay={menu} trigger={["click"]}>
           <MenuOutlined onClick={(e) => e.preventDefault()} />
@@ -127,17 +123,13 @@ const QuestionItemComponent = (props: IPropsQuestionItem) => {
         <QuestionItem.ContentsP>{props.el?.contents}</QuestionItem.ContentsP>
       </QuestionItem.ContentsBoxDiv>
 
-      {edit && (
-        <QuestionWriteComponent el={props.el} edit={edit} setEdit={setEdit} />
-      )}
+      {edit && <QuestionWriteComponent el={props.el} edit={edit} setEdit={setEdit} />}
 
       <QuestionItem.AnswerItemBoxDiv>
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
-          {data?.fetchUseditemQuestionAnswers.map(
-            (el: IUseditemQuestionAnswer) => (
-              <AnswerItemComponent key={el._id} el={el} />
-            )
-          )}
+          {data?.fetchUseditemQuestionAnswers.map((el: IUseditemQuestionAnswer) => (
+            <AnswerItemComponent key={el._id} el={el} />
+          ))}
         </InfiniteScroll>
       </QuestionItem.AnswerItemBoxDiv>
 

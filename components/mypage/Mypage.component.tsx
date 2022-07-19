@@ -1,16 +1,11 @@
-import {
-  ShopOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-} from "@ant-design/icons";
+import { ShopOutlined, ShoppingCartOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client";
 import { FETCH_USER_LOGGED_IN } from "../../src/api/mypage/Mypage.queries";
 import * as MyPage from "../../src/styles/mypage/Mypage.styles";
 import { IQuery } from "../../src/types/generated/types";
 
 const MyPageComponent = () => {
-  const { data } =
-    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  const { data } = useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
   const user = data?.fetchUserLoggedIn;
 
   return (

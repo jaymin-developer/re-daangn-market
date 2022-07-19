@@ -20,9 +20,7 @@ const AnswerItemComponent = (props: IPropsAnswerItem) => {
         />
         <AnswerItem.UserNameCreatedAtDiv>
           <AnswerItem.UserNameP>{props.el?.user.name}</AnswerItem.UserNameP>
-          <AnswerItem.CreatedAtP>
-            {moment(props.el?.createdAt).format("LLL")}
-          </AnswerItem.CreatedAtP>
+          <AnswerItem.CreatedAtP>{moment(props.el?.createdAt).format("LLL")}</AnswerItem.CreatedAtP>
         </AnswerItem.UserNameCreatedAtDiv>
       </AnswerItem.WrapperHeadDiv>
       <AnswerItem.ContentsBoxDiv>

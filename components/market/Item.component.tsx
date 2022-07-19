@@ -23,11 +23,7 @@ const ItemComponent = (props: IPropsItem) => {
   };
 
   return (
-    <ItemWrapperArticle
-      key={props.el._id}
-      id={props.el._id}
-      onClick={onClickMoveToDetail}
-    >
+    <ItemWrapperArticle key={props.el._id} id={props.el._id} onClick={onClickMoveToDetail}>
       <ItemImgDiv>
         <ItemImg
           title={props.el.name}
@@ -41,9 +37,7 @@ const ItemComponent = (props: IPropsItem) => {
       <ItemNameH2>{props.el.name}</ItemNameH2>
       <ItemPriceDiv>{FormatKRW(props.el.price)}</ItemPriceDiv>
       <ItemRegionDiv>
-        {props.el.useditemAddress?.address
-          ? props.el.useditemAddress.address
-          : "위치 정보 없음"}
+        {props.el.useditemAddress?.address ? props.el.useditemAddress.address : "위치 정보 없음"}
       </ItemRegionDiv>
       <ItemCountsDiv>{moment(props.el.createdAt).format("LLL")}</ItemCountsDiv>
     </ItemWrapperArticle>

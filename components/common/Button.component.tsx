@@ -17,11 +17,7 @@ interface IPropsFuncButton {
 
 export const MoveButtonMain = (props: IPropsMoveButton) => {
   const { moveToPage } = useMoveToPage();
-  return (
-    <Button.MainColorButton onClick={moveToPage(props.page)}>
-      {props.name}
-    </Button.MainColorButton>
-  );
+  return <Button.MainColorButton onClick={moveToPage(props.page)}>{props.name}</Button.MainColorButton>;
 };
 
 export const MoveButtonSub = (props: IPropsMoveButton) => {
@@ -34,11 +30,7 @@ export const MoveButtonSub = (props: IPropsMoveButton) => {
 };
 
 export const FuncButtonMain = (props: IPropsFuncButton) => {
-  return (
-    <Button.MainColorButton onClick={props.func}>
-      {props.name}
-    </Button.MainColorButton>
-  );
+  return <Button.MainColorButton onClick={props.func}>{props.name}</Button.MainColorButton>;
 };
 
 export const FuncButtonSub = (props: IPropsFuncButton) => {
