@@ -14,11 +14,12 @@ import { FuncButtonMain } from "../../common/Button.component";
 interface IPropsQuestionWrite {
   el?: IUseditemQuestion;
   edit?: boolean;
-  setEdit: Dispatch<SetStateAction<boolean>>;
+  setEdit?: Dispatch<SetStateAction<boolean>>;
 }
 
 const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
   const router = useRouter();
+  const [edit, setEdit] = useState(false);
   const [contents, setContents] = useState("");
 
   const [createUseditemQuestion] = useMutation(CREATE_USED_ITEM_QUESTION);
