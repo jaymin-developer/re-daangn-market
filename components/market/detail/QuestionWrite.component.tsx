@@ -13,8 +13,6 @@ import { FuncButtonMain } from "../../common/Button.component";
 
 interface IPropsQuestionWrite {
   el?: IUseditemQuestion;
-  edit?: boolean;
-  setEdit?: Dispatch<SetStateAction<boolean>>;
 }
 
 const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
@@ -78,7 +76,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
         ],
       });
       Modal.success({ content: "댓글 수정이 완료됐습니다." });
-      props.setEdit(false);
+      setEdit(false);
     } catch (error) {
       error instanceof Error && Modal.error({ content: error.message });
     }
@@ -88,7 +86,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
 
   return (
     <QuestionWrite.WrapperDiv>
-      <QuestionWrite.NameP>{props.edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>
+      <QuestionWrite.NameP>{edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>
       <QuestionWrite.ContentsBoxDiv>
         <QuestionWrite.ContentsTextArea
           maxLength={100}
@@ -96,7 +94,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
           onChange={onChangeContents}
           defaultValue={props.el?.contents}
         />
-        {props.edit ? (
+        {edit ? (
           <FuncButtonMain name="수정" func={onClickUpdate} />
         ) : (
           <FuncButtonMain name="등록" func={onClickQuestionWrite} />
