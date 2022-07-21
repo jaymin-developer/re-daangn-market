@@ -6,7 +6,11 @@ import "moment/locale/ko";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { DELETE_USED_ITEM, FETCH_USED_ITEM } from "../../../src/api/market/detail/MarketDetail.queries";
+import {
+  DELETE_USED_ITEM,
+  FETCH_USED_ITEM,
+  TOGGLE_USED_ITEM_PICK,
+} from "../../../src/api/market/detail/MarketDetail.queries";
 import { FormatKRW } from "../../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../../src/types/generated/types";
 import * as Detail from "../../../src/styles/market/detail/MarketDetail.styles";
@@ -22,14 +26,11 @@ const MarketDetailComponent = () => {
   const [pick, setPick] = useState(false);
   const [interestedItems, setInterestedItems] = useState([]);
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
+  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
   const { data: itemData, loading } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.detail) },
   });
-
-  const onClickPick = () => {
-    setPick((prev) => !prev);
-  };
 
   const onClickDelete = async () => {
     try {
@@ -45,6 +46,30 @@ const MarketDetailComponent = () => {
 
   const onClickMoveEdit = () => {
     router.push(`${router.query.detail}/edit`);
+  };
+
+  const onClickToggleUsedItemPick = async () => {
+    try {
+      await toggleUseditemPick({
+        variables: { useditemId: String(router.query.detail) },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM,
+            variables: { useditemId: String(router.query.detail) },
+          },
+        ],
+      });
+      if (pick === false) {
+        alert("상품을 찜했습니다!");
+        setPick(true);
+      }
+      if (pick === true) {
+        alert("찜을 취소했습니다!");
+        setPick(false);
+      }
+    } catch (error) {
+      error instanceof Error && Modal.error({ content: error.message });
+    }
   };
 
   const menu = (
@@ -100,7 +125,11 @@ const MarketDetailComponent = () => {
               </Detail.SellerNameAddressDiv>
             </Detail.SellerInfoDiv>
             <Detail.ItemPickDiv>
-              {pick ? <HeartFilled onClick={onClickPick} /> : <HeartOutlined onClick={onClickPick} />}
+              {pick ? (
+                <HeartFilled onClick={onClickToggleUsedItemPick} />
+              ) : (
+                <HeartOutlined onClick={onClickToggleUsedItemPick} />
+              )}
 
               {itemData?.fetchUseditem.pickedCount}
               {userInfo?._id === itemData?.fetchUseditem.seller._id && (

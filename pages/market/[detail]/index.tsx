@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import MarketDetailComponent from "../../../components/market/detail/MarketDetail.component";
 import QuestionListComponent from "../../../components/market/detail/QuestionList.component";
 import QuestionWriteComponent from "../../../components/market/detail/QuestionWrite.component";
 
 const MarketDetailPage = () => {
+  const [_, setEdit] = useState(false);
+
   return (
     <Wrapper>
       <MarketDetailComponent />
-      <QuestionWriteComponent />
+      <QuestionWriteComponent setEdit={setEdit} />
       <QuestionListComponent />
     </Wrapper>
   );

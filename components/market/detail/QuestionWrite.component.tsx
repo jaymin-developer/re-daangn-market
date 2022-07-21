@@ -13,11 +13,12 @@ import { FuncButtonMain } from "../../common/Button.component";
 
 interface IPropsQuestionWrite {
   el?: IUseditemQuestion;
+  edit?: boolean;
+  setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
   const router = useRouter();
-  const [edit, setEdit] = useState(false);
   const [contents, setContents] = useState("");
 
   const [createUseditemQuestion] = useMutation(CREATE_USED_ITEM_QUESTION);
@@ -76,7 +77,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
         ],
       });
       Modal.success({ content: "댓글 수정이 완료됐습니다." });
-      setEdit(false);
+      props.setEdit(false);
     } catch (error) {
       error instanceof Error && Modal.error({ content: error.message });
     }
@@ -86,7 +87,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
 
   return (
     <QuestionWrite.WrapperDiv>
-      <QuestionWrite.NameP>{edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>
+      <QuestionWrite.NameP>{props.edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>
       <QuestionWrite.ContentsBoxDiv>
         <QuestionWrite.ContentsTextArea
           maxLength={100}
@@ -94,7 +95,7 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
           onChange={onChangeContents}
           defaultValue={props.el?.contents}
         />
-        {edit ? (
+        {props.edit ? (
           <FuncButtonMain name="수정" func={onClickUpdate} />
         ) : (
           <FuncButtonMain name="등록" func={onClickQuestionWrite} />
