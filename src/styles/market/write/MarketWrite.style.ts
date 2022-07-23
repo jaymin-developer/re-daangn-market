@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Color } from "../../theme";
 
 export const WrapperDiv = styled.div`
   max-width: 960px;
@@ -50,4 +51,31 @@ export const TagsInput = styled(BaseInput)`
 
 export const ToastEditorBoxDiv = styled.div`
   width: 100%;
+
+  .youtube {
+    background: url("/youtube.png") no-repeat;
+    background-size: contain;
+  }
+
+  .youtube-div {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .youtube-input {
+    width: 80%;
+    border: 1px solid #e1e3e9;
+
+    padding: 0 10px;
+  }
+
+  .youtube-button {
+    width: 63px;
+    height: 32px;
+
+    color: white;
+    background-color: ${Color.Main};
+  }
 `;

@@ -1,22 +1,11 @@
 import "../src/styles/reset.ts";
 import "antd/dist/antd.css";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  ApolloLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, ApolloLink } from "@apollo/client";
 import type { AppProps } from "next/app";
 
 import { onError } from "@apollo/client/link/error";
 import LayoutComponent from "../components/layout";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 import { createUploadLink } from "apollo-upload-client";
 import { Global } from "@emotion/react";
@@ -44,10 +33,9 @@ export const GlobalContext = createContext<IGlobalContext>({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>({});
-
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
 
   const value = {
     accessToken,
