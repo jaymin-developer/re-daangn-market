@@ -83,8 +83,6 @@ const QuestionWriteComponent = (props: IPropsQuestionWrite) => {
     }
   };
 
-  console.log(props.el?.contents);
-
   return (
     <QuestionWrite.WrapperDiv>
       <QuestionWrite.NameP>{props.edit ? "댓글 수정" : "댓글"}</QuestionWrite.NameP>

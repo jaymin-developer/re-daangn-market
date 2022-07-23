@@ -151,7 +151,7 @@ const MarketDetailComponent = () => {
 
             <Detail.ItemContents
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(String(itemData?.fetchUseditem.contents)),
+                __html: String(itemData?.fetchUseditem.contents),
               }}
             />
           </Detail.ItemDescDiv>

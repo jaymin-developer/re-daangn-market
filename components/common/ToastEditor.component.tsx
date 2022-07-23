@@ -3,13 +3,16 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import { Editor } from "@toast-ui/react-editor";
-import { useState } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
-const ToastEditor = (props: { editorRef: any }) => {
-  const [youtubeUrl, setYoutubeUrl] = useState("");
-  const [youtubeUrls, setYoutubeUrls] = useState<typeof youtubeUrl[]>([]);
+interface IPropsToastEditor {
+  editorRef: RefObject<Editor>;
+  youtubeUrls: string[];
+  setYoutubeUrls: Dispatch<SetStateAction<string[]>>;
+}
 
+const ToastEditor = (props: IPropsToastEditor) => {
   const customPlugin = () => {
     const container = document.createElement("div");
     container.className = "youtube-div";
@@ -44,8 +47,7 @@ const ToastEditor = (props: { editorRef: any }) => {
       }
 
       const youtubeUrl = value.split("/")[3];
-      setYoutubeUrl(youtubeUrl);
-      setYoutubeUrls([...youtubeUrls, youtubeUrl]);
+      props.setYoutubeUrls((prev) => [...prev, youtubeUrl]);
 
       const getHTML = props.editorRef.current?.getInstance().getHTML();
 
@@ -77,6 +79,7 @@ const ToastEditor = (props: { editorRef: any }) => {
       ],
     };
   };
+  console.log(props.youtubeUrls);
 
   return (
     <Editor

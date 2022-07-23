@@ -25,6 +25,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const [address, setAddress] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState("");
+  const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
@@ -62,18 +63,36 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
+  const onChangeContents = (e: any) => {
+    console.log(e.target.value);
+  };
+
   const onClickSubmit = async () => {
-    const contents = editorRef.current?.getInstance().getHTML();
+    let changedContents = editorRef.current?.getInstance().getHTML();
+    console.log(changedContents);
+    console.log(youtubeUrls);
+    console.log(youtubeUrls.length > 0);
+    if (youtubeUrls.length > 0) {
+      for (let i = 0; i < youtubeUrls.length; i++) {
+        if (changedContents?.includes(`${youtubeUrls[i]}`)) {
+          console.log(youtubeUrls[i]);
+          changedContents = changedContents.replace(
+            `<p><img src="https://img.youtube.com/vi/${youtubeUrls[i]}/hqdefault.jpg" contenteditable="false"><img class="ProseMirror-separator" alt=""><br class="ProseMirror-trailingBreak"></p>`,
+            `<div class="youtube-iframe"><iframe width='560' height='315' src='https://www.youtube.com/embed/${youtubeUrls[i]}' title='YouTube video player' frameBorder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe></div>`
+          );
+        }
+      }
+    }
 
     if (Object.values(requiredInfo).some((el) => el === "")) {
-      Modal.warn({ content: "필수 입력 사항입니다!" });
+      Modal.warn({ content: "누락된 내용이 있습니다" });
       return;
     }
 
     const writeVariables = {
       createUseditemInput: {
         ...requiredInfo,
-        contents,
+        contents: changedContents,
         images,
         tags,
         useditemAddress: {
@@ -83,6 +102,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     };
 
     try {
+      console.log(changedContents);
       const result = await createUseditem({
         variables: writeVariables,
       });
@@ -117,16 +137,13 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   return (
     <Write.WrapperDiv>
       <Write.InputBoxDiv>
-        <Write.TitleInput id="name" type="text" placeholder="상품명" onChange={onChangeRequiredInfo} />
-        {/* <div>{errors.name?.message}</div> */}
-        <Write.RemarksInput id="remarks" type="text" placeholder="한줄평" onChange={onChangeRequiredInfo} />
-        {/* <div>{errors.remarks?.message}</div> */}
-        <Write.PriceInput id="price" type="number" placeholder="가격" onChange={onChangeRequiredInfo} />
-        {/* <div>{errors.price?.message}</div> */}
-        <Write.TagsInput placeholder="태그(최대 5개)" />
+        <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
+        <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
+        <Write.PriceInput id="price" type="number" placeholder="가격(필수)" onChange={onChangeRequiredInfo} />
+        <Write.TagsInput placeholder="태그(선택, 최대 5개)" />
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>
-        <ToastEditor editorRef={editorRef} />
+        <ToastEditor editorRef={editorRef} youtubeUrls={youtubeUrls} setYoutubeUrls={setYoutubeUrls} />
       </Write.ToastEditorBoxDiv>
       <Write.HeaderBoxDiv>
         <MoveButtonSub type="button" name="목록으로" page="/market" />

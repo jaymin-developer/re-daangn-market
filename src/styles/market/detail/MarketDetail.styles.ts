@@ -107,12 +107,20 @@ export const ItemCreatedAtP = styled.p`
 `;
 
 export const ItemPriceP = styled.p`
+  width: 100%;
+
   font-size: 20px;
   font-weight: 500;
 `;
 export const ItemContents = styled.div`
   margin-top: 20px;
   line-height: 1.5;
+
+  .youtube-iframe {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const InterestedWrapperDiv = styled.div`
