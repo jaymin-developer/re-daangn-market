@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import ItemComponent from "../components/market/Item.component";
+import ItemGridComponent from "../components/common/ItemGrid.component";
 import { useMoveToPage } from "../hooks/useRouter";
 import { FETCH_USED_ITEMS } from "../src/api/Home.queries";
 import { IUseditem } from "../src/types/generated/types";
@@ -79,7 +79,7 @@ const HomePage: NextPage = () => {
         <Home.TitleH1>중고거래 최근매물</Home.TitleH1>
         <Home.ListSection>
           {data?.fetchUseditems.slice(0, 8).map((el: IUseditem) => (
-            <ItemComponent el={el} />
+            <ItemGridComponent el={el} />
           ))}
         </Home.ListSection>
       </Home.ForthMainSection>

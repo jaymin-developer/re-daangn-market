@@ -1,6 +1,5 @@
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
-import DOMPurify from "isomorphic-dompurify";
 import moment from "moment";
 import "moment/locale/ko";
 import Head from "next/head";
@@ -16,7 +15,7 @@ import { IUseditem } from "../../../src/types/generated/types";
 import * as Detail from "../../../src/styles/market/detail/MarketDetail.styles";
 import CarouselComponent from "../../common/Carousel.component";
 import LoadingComponent from "../../common/Loading.component";
-import ItemComponent from "../Item.component";
+import ItemComponent from "../../common/ItemGrid.component";
 import { Dropdown, Menu, Modal } from "antd";
 import { GlobalContext } from "../../../pages/_app";
 
@@ -60,11 +59,11 @@ const MarketDetailComponent = () => {
         ],
       });
       if (pick === false) {
-        alert("상품을 찜했습니다!");
+        Modal.success({ content: "상품을 찜했습니다!" });
         setPick(true);
       }
       if (pick === true) {
-        alert("찜을 취소했습니다!");
+        Modal.success({ content: "찜을 취소했습니다!" });
         setPick(false);
       }
     } catch (error) {

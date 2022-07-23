@@ -5,6 +5,7 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { Editor } from "@toast-ui/react-editor";
 import { Dispatch, RefObject, SetStateAction } from "react";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import { Modal } from "antd";
 
 interface IPropsToastEditor {
   editorRef: RefObject<Editor>;
@@ -41,7 +42,7 @@ const ToastEditor = (props: IPropsToastEditor) => {
         return;
       }
       if (!value.includes("https://youtu.be/")) {
-        alert("'https://youtu.be/' 를 포함한 링크만 가능합니다.");
+        Modal.error({ content: "'https://youtu.be/' 를 포함한 링크만 가능합니다." });
         youtubeInput.value = "";
         return;
       }

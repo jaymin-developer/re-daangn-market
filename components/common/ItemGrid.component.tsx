@@ -10,7 +10,7 @@ interface IPropsItem {
   el: IUseditem;
 }
 
-const ItemComponent = (props: IPropsItem) => {
+const ItemGridComponent = (props: IPropsItem) => {
   const router = useRouter();
   const onClickMoveToDetail = () => {
     const basket = JSON.parse(localStorage.getItem("interested") || "[]");
@@ -44,7 +44,7 @@ const ItemComponent = (props: IPropsItem) => {
   );
 };
 
-export default ItemComponent;
+export default ItemGridComponent;
 
 const ItemWrapperArticle = styled.article`
   display: flex;

@@ -30,7 +30,7 @@ const LayoutHeaderComponent = () => {
 
   const onKeyEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    if (e.key === "Enter") {
+    if (target.value !== "" && e.key === "Enter") {
       setSearch(target.value);
       router.push({
         pathname: "/market",

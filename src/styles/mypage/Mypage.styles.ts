@@ -9,7 +9,7 @@ export const WrapperDiv = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
 
   padding: 96px 10px 0;
@@ -38,7 +38,16 @@ export const ProfileNameP = styled.p`
   font-weight: 700;
 `;
 export const ProfileIdP = styled.p`
+  display: flex;
   font-size: 14px;
+
+  gap: 10px;
+
+  span {
+    color: ${Color.Main};
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
 
 export const MenuBoxDiv = styled.div`
@@ -49,8 +58,8 @@ export const MenuBoxDiv = styled.div`
 `;
 
 export const MenuItemBoxDiv = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 
   display: flex;
   flex-direction: column;
@@ -62,9 +71,38 @@ export const MenuItemBoxDiv = styled.div`
   background-color: #ffb88b;
   border-radius: 50%;
 
+  color: ${Color.Main};
+
   cursor: pointer;
 
   svg {
     color: ${Color.Main};
+  }
+`;
+
+export const MenuSoldDiv = styled(MenuItemBoxDiv)`
+  color: ${(props: { menu: string }) => props.menu === "sold" && "white"};
+  svg {
+    color: ${(props) => props.menu === "sold" && "white"};
+  }
+`;
+
+export const MenuBuyDiv = styled(MenuItemBoxDiv)`
+  color: ${(props: { menu: string }) => props.menu === "buy" && "white"};
+  svg {
+    color: ${(props) => props.menu === "buy" && "white"};
+  }
+`;
+
+export const MenuPickDiv = styled(MenuItemBoxDiv)`
+  color: ${(props: { menu: string }) => props.menu === "pick" && "white"};
+  svg {
+    color: ${(props) => props.menu === "pick" && "white"};
+  }
+`;
+export const MenuChargeDiv = styled(MenuItemBoxDiv)`
+  color: ${(props: { menu: string }) => props.menu === "charge" && "white"};
+  svg {
+    color: ${(props) => props.menu === "charge" && "white"};
   }
 `;

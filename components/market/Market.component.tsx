@@ -8,7 +8,7 @@ import { IUseditem } from "../../src/types/generated/types";
 import * as Market from "../../src/styles/market/Market.styles";
 import { MoveButtonMain } from "../common/Button.component";
 import LoadingComponent from "../common/Loading.component";
-import ItemComponent from "./Item.component";
+import ItemGridComponent from "../common/ItemGrid.component";
 import RegionSelect from "./SearchRegion.component";
 
 const MarketComponent = () => {
@@ -59,10 +59,10 @@ const MarketComponent = () => {
             {region &&
               data?.fetchUseditems
                 .filter((el: IUseditem) => el.useditemAddress?.address?.slice(0, 2).includes(region))
-                .map((el: IUseditem) => <ItemComponent el={el} />)}
+                .map((el: IUseditem) => <ItemGridComponent el={el} />)}
 
             {/* 지역 미설정 시 데이터 */}
-            {!region && data?.fetchUseditems.map((el: IUseditem) => <ItemComponent el={el} />)}
+            {!region && data?.fetchUseditems.map((el: IUseditem) => <ItemGridComponent el={el} />)}
           </Market.ListSection>
         </InfiniteScroll>
       )}
