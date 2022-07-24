@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroller";
-import { FETCH_USED_ITEMS_PICKED } from "../../src/api/mypage/MyPagePick.queries";
+import { FETCH_USED_ITEMS_PICKED } from "../../src/api/mypage/MypagePick.queries";
 import * as Pick from "../../src/styles/mypage/MypagePick.styles";
 import { IUseditem } from "../../src/types/generated/types";
 import ItemFlexComponent from "../common/ItemFlex.component";
