@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroller";
 import { FETCH_USED_ITEMS_I_SOLD, FETCH_USED_ITMES_COUNT_I_SOLD } from "../../src/api/mypage/MypageSold.queries";
 
-import * as Sell from "../../src/styles/mypage/MypageSold.styles";
+import * as Sold from "../../src/styles/mypage/MypageSold.styles";
 import { IUseditem } from "../../src/types/generated/types";
 import ItemFlexComponent from "../common/ItemFlex.component";
 
@@ -30,15 +30,15 @@ const MyPageSellComponent = () => {
   };
 
   return (
-    <Sell.WrapperDiv>
-      <Sell.ListSection>
+    <Sold.WrapperDiv>
+      <Sold.ListSection>
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
           {data?.fetchUseditemsISold.slice(0, 8).map((el: IUseditem) => (
             <ItemFlexComponent el={el} category={"sold"} />
           ))}
         </InfiniteScroll>
-      </Sell.ListSection>
-    </Sell.WrapperDiv>
+      </Sold.ListSection>
+    </Sold.WrapperDiv>
   );
 };
 

@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import {
   DELETE_USED_ITEM,
   FETCH_USED_ITEM,
+  FETCH_USED_ITEMS_PICKED,
   TOGGLE_USED_ITEM_PICK,
 } from "../../../src/api/market/detail/MarketDetail.queries";
 import { FormatKRW } from "../../../src/commons/libraries/getNumberFormat";
@@ -29,6 +30,13 @@ const MarketDetailComponent = () => {
 
   const { data: itemData, loading } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.detail) },
+  });
+
+  const { data: pickData } = useQuery(FETCH_USED_ITEMS_PICKED, {
+    variables: {
+      page: 1,
+      search: "",
+    },
   });
 
   const onClickDelete = async () => {
@@ -89,6 +97,14 @@ const MarketDetailComponent = () => {
   useEffect(() => {
     setInterestedItems(JSON.parse(localStorage.getItem("interested") || "[]"));
   }, []);
+
+  useEffect(() => {
+    if (pickData?.fetchUseditemsIPicked.filter((el: IUseditem) => el._id === itemData?.fetchUseditem._id).length) {
+      setPick(true);
+    } else {
+      setPick(false);
+    }
+  }, [pickData]);
 
   return (
     <Detail.WrapperArticle>

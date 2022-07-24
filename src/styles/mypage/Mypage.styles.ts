@@ -25,6 +25,7 @@ export const ProfileBoxDiv = styled.div`
 `;
 
 export const ProfileColumnBoxDiv = styled(ProfileBoxDiv)`
+  width: 60%;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;

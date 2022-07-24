@@ -36,7 +36,7 @@ const MyPageComponent = () => {
             {user?.userPoint?.amount} 포인트 <span>충전하기</span>
           </MyPage.ProfileIdP>
         </MyPage.ProfileColumnBoxDiv>
-        <MyPage.ProfileNameP>{`>`}</MyPage.ProfileNameP>
+        <MyPage.ProfileIdP>{`개인정보 수정 >`}</MyPage.ProfileIdP>
       </MyPage.ProfileBoxDiv>
       <MyPage.MenuBoxDiv>
         <MyPage.MenuSoldDiv id="sold" menu={menu} onClick={onClickMenu}>
@@ -51,10 +51,6 @@ const MyPageComponent = () => {
           <ShoppingCartOutlined style={{ fontSize: "30px" }} />
           <p>관심목록</p>
         </MyPage.MenuPickDiv>
-        <MyPage.MenuChargeDiv id="charge" menu={menu} onClick={onClickMenu}>
-          <WalletFilled style={{ fontSize: "30px" }} />
-          <p>충전하기</p>
-        </MyPage.MenuChargeDiv>
       </MyPage.MenuBoxDiv>
       {menu === "sold" && <MyPageSellComponent />}
       {menu === "buy" && <MyPageBuyComponent />}

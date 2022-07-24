@@ -42,8 +42,12 @@ const ItemFlexComponent = (props: IPropsItem) => {
           {props.el.useditemAddress?.address ? props.el.useditemAddress.address : "위치 정보 없음"}
         </ItemRegionDiv>
       </ItemDescDiv>
-      <ItemOptionDiv>{props.el?.soldAt ? "판매완료" : "판매중"}</ItemOptionDiv>
-      {props.el?.soldAt && <p> ${moment(props.el?.soldAt).format("LLL")}</p>}
+      {props.category === "sold" && (
+        <>
+          <ItemOptionDiv>{props.el?.soldAt ? "판매완료" : "판매중"}</ItemOptionDiv>
+          {props.el?.soldAt && <p> ${moment(props.el?.soldAt).format("LLL")}</p>}
+        </>
+      )}
     </ItemWrapperArticle>
   );
 };
