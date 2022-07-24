@@ -9,13 +9,15 @@ import { CREATE_USED_ITEM, UPDATE_USED_ITEM, UPLOAD_FILE } from "../../../src/ap
 import { FormValues, IPropsMarketWrite } from "../../../src/types/market/write/MarketWrite.types";
 import { Editor } from "@toast-ui/react-editor";
 
-const ToastEditor = dynamic(() => import("../../../components/common/ToastEditor.component"), { ssr: false });
+const ToastEditorComponent = dynamic(() => import("../../../components/common/ToastEditor.component"), { ssr: false });
 
 const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const router = useRouter();
 
+  //useRef
   const editorRef = useRef<Editor>(null);
 
+  //useState
   const [requiredInfo, setReqieredInfo] = useState<FormValues>({
     name: "",
     remarks: "",
@@ -26,10 +28,14 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState("");
   const [youtubeUrls, setYoutubeUrls] = useState<string[]>([]);
+
+  //useMutation
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
+  //onChange
+  //필수입력사항 체크
   const onChangeRequiredInfo = (e: ChangeEvent<HTMLInputElement>) => {
     setReqieredInfo((prev) => {
       return {
@@ -39,6 +45,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     });
   };
 
+  //사진 파일 업로드
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     try {
@@ -52,26 +59,31 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
+  // 태그 변화
   const onChangeTag = (event: ChangeEvent<HTMLInputElement>) => {
     setTag(event.target.value);
   };
 
-  const onKeyUpTags = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && tag.includes("#") && tags.includes(tag) === false && tags.length < 5) {
+  // 태그 등록
+  const onKeyUpTags = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && tag.includes("#") && tags.includes(tag) === false && tags.length < 5) {
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
   };
 
-  const onChangeContents = (e: any) => {
-    console.log(e.target.value);
-  };
-
+  // 게시글 등록
   const onClickSubmit = async () => {
+    // 게시글 필수입력사항 누락 체크
+    if (Object.values(requiredInfo).some((el) => el === "")) {
+      Modal.warn({ content: "누락된 내용이 있습니다" });
+      return;
+    }
+
+    // HTML로 가져오기
     let changedContents = editorRef.current?.getInstance().getHTML();
-    console.log(changedContents);
-    console.log(youtubeUrls);
-    console.log(youtubeUrls.length > 0);
+
+    // 유튜브 썸네일에서 iframe으로 변경
     if (youtubeUrls.length > 0) {
       for (let i = 0; i < youtubeUrls.length; i++) {
         if (changedContents?.includes(`${youtubeUrls[i]}`)) {
@@ -84,11 +96,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       }
     }
 
-    if (Object.values(requiredInfo).some((el) => el === "")) {
-      Modal.warn({ content: "누락된 내용이 있습니다" });
-      return;
-    }
-
+    // 게시글 등록 args
     const writeVariables = {
       createUseditemInput: {
         ...requiredInfo,
@@ -101,8 +109,8 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       },
     };
 
+    //
     try {
-      console.log(changedContents);
       const result = await createUseditem({
         variables: writeVariables,
       });
@@ -113,12 +121,13 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
+  // 게시글 업데이트
   const onClickUpdate = async () => {
     const contents = editorRef.current?.getInstance().getHTML();
     try {
       await updateUseditem({
         variables: {
-          useditemId: router.query.id,
+          useditemId: router.query.detail,
           updateUseditemInput: {
             ...requiredInfo,
             contents,
@@ -128,7 +137,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         },
       });
       Modal.success({ content: "수정이 완료되었습니다." });
-      router.push(`/useditems/${router.query.id}`);
+      router.push(`/market/${router.query.detail}`);
     } catch (error) {
       error instanceof Error && Modal.error({ content: error.message });
     }
@@ -143,7 +152,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         <Write.TagsInput placeholder="태그(선택, 최대 5개)" />
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>
-        <ToastEditor editorRef={editorRef} youtubeUrls={youtubeUrls} setYoutubeUrls={setYoutubeUrls} />
+        <ToastEditorComponent editorRef={editorRef} youtubeUrls={youtubeUrls} setYoutubeUrls={setYoutubeUrls} />
       </Write.ToastEditorBoxDiv>
       <Write.HeaderBoxDiv>
         <MoveButtonSub type="button" name="목록으로" page="/market" />

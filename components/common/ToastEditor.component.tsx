@@ -13,7 +13,7 @@ interface IPropsToastEditor {
   setYoutubeUrls: Dispatch<SetStateAction<string[]>>;
 }
 
-const ToastEditor = (props: IPropsToastEditor) => {
+const ToastEditorComponent = (props: IPropsToastEditor) => {
   const customPlugin = () => {
     const container = document.createElement("div");
     container.className = "youtube-div";
@@ -104,4 +104,4 @@ const ToastEditor = (props: IPropsToastEditor) => {
   );
 };
 
-export default ToastEditor;
+export default ToastEditorComponent;
