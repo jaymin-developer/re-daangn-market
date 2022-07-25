@@ -147,3 +147,17 @@ export const InterestedItemsDiv = styled.div`
 
   gap: 48px;
 `;
+
+export const BuyButton = styled.button`
+  width: 120vw;
+  height: 70px;
+  bottom: 0px;
+  background-color: #ff7e35;
+  border: none;
+  font-size: 18px;
+
+  color: white;
+  position: fixed;
+  z-index: 1;
+  cursor: pointer;
+`;

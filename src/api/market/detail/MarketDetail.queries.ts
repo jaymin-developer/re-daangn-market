@@ -11,6 +11,7 @@ export const FETCH_USED_ITEM = gql`
       tags
       images
       createdAt
+      soldAt
       pickedCount
       useditemAddress {
         address

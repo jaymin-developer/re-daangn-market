@@ -17,9 +17,9 @@ declare global {
 }
 
 const MyPageComponent = () => {
-  const [isModal, setIsModal] = useState(false);
-  const [amount, setAmount] = useState(0);
   const [menu, setMenu] = useState("sold");
+  const [amount, setAmount] = useState(0);
+  const [isModal, setIsModal] = useState(false);
 
   const [createPointTransactionOfLoading] = useMutation(CREATE_POINT_TRANSACTION_OF_LOADING, {
     variables: { impUid: "imp86575384" },
@@ -42,7 +42,7 @@ const MyPageComponent = () => {
     setIsModal((prev) => !prev);
   };
 
-  const chargePoint = async (rsp: { success: boolean; imp_uid: string }) => {
+  const onClickChargePoint = async (rsp: { success: boolean; imp_uid: string }) => {
     try {
       await createPointTransactionOfLoading({
         variables: {
@@ -75,7 +75,7 @@ const MyPageComponent = () => {
         if (rsp.success) {
           // 결제 성공 시 로직,
           // 포인트 충전시 이 곳에서 BE로 정보를 넘겨주는 로직을 작성해야함 ( imp_uid , paid_amount ) 즉, Mutation 실행 (createPointTransactionOfLoading)
-          chargePoint(rsp);
+          onClickChargePoint(rsp);
           onClickModal();
         } else {
           Modal.error({ content: "결제에 실패했습니다." });
@@ -87,10 +87,6 @@ const MyPageComponent = () => {
 
   return (
     <>
-      <Head>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-      </Head>
       <MyPage.WrapperDiv>
         <MyPage.ProfileBoxDiv>
           <MyPage.ProfileImg
@@ -128,6 +124,7 @@ const MyPageComponent = () => {
         {menu === "pick" && <MyPagePickComponent />}
       </MyPage.WrapperDiv>
 
+      {/* 포인트 충전 모달 */}
       {isModal && (
         <Modal
           visible={true}

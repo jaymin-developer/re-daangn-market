@@ -2,7 +2,6 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import { Dropdown, Menu, Modal } from "antd";
 import moment from "moment";
-import "moment/locale/ko";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";

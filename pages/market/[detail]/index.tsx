@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Head from "next/head";
 import { useState } from "react";
 import MarketDetailComponent from "../../../components/market/detail/MarketDetail.component";
 import QuestionListComponent from "../../../components/market/detail/QuestionList.component";
@@ -8,11 +9,17 @@ const MarketDetailPage = () => {
   const [_, setEdit] = useState(false);
 
   return (
-    <Wrapper>
-      <MarketDetailComponent />
-      <QuestionWriteComponent setEdit={setEdit} />
-      <QuestionListComponent />
-    </Wrapper>
+    <>
+      <Head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+      </Head>
+      <Wrapper>
+        <MarketDetailComponent />
+        <QuestionWriteComponent setEdit={setEdit} />
+        <QuestionListComponent />
+      </Wrapper>
+    </>
   );
 };
 

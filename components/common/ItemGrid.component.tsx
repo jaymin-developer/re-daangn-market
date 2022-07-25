@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import moment from "moment";
-import "moment/locale/ko";
 import { useRouter } from "next/router";
 import { FormatKRW } from "../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../src/types/generated/types";
@@ -15,31 +14,31 @@ const ItemGridComponent = (props: IPropsItem) => {
   const onClickMoveToDetail = () => {
     const basket = JSON.parse(localStorage.getItem("interested") || "[]");
 
-    if (JSON.stringify(localStorage).includes(props.el._id) === false) {
+    if (JSON.stringify(localStorage).includes(props.el?._id) === false) {
       basket.unshift(props.el);
     }
     localStorage.setItem("interested", JSON.stringify(basket));
-    router.push(`/market/${props.el._id}`);
+    router.push(`/market/${props.el?._id}`);
   };
 
   return (
-    <ItemWrapperArticle key={props.el._id} id={props.el._id} onClick={onClickMoveToDetail}>
+    <ItemWrapperArticle key={props.el?._id} id={props.el?._id} onClick={onClickMoveToDetail}>
       <ItemImgDiv>
         <ItemImg
-          title={props.el.name}
-          alt={props.el.name}
-          src={`https://storage.googleapis.com/${props.el.images[0]}`}
+          title={props.el?.name}
+          alt={props.el?.name}
+          src={`https://storage.googleapis.com/${props.el?.images[0]}`}
           onError={(e) => {
             e.currentTarget.src = "/logo_daangn.png";
           }}
         />
       </ItemImgDiv>
-      <ItemNameH2>{props.el.name}</ItemNameH2>
-      <ItemPriceDiv>{FormatKRW(props.el.price)}</ItemPriceDiv>
+      <ItemNameH2>{props.el?.name}</ItemNameH2>
+      <ItemPriceDiv>{FormatKRW(props.el?.price)}</ItemPriceDiv>
       <ItemRegionDiv>
-        {props.el.useditemAddress?.address ? props.el.useditemAddress.address : "위치 정보 없음"}
+        {props.el?.useditemAddress?.address ? props.el?.useditemAddress.address : "위치 정보 없음"}
       </ItemRegionDiv>
-      <ItemCountsDiv>{moment(props.el.createdAt).format("LLL")}</ItemCountsDiv>
+      <ItemCountsDiv>{moment(props.el?.createdAt).format("LLL")}</ItemCountsDiv>
     </ItemWrapperArticle>
   );
 };

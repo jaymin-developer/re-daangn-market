@@ -1,5 +1,5 @@
 import moment from "moment";
-import "moment/locale/ko";
+
 import * as AnswerItem from "../../src/styles/common/AnswerItem.styles";
 import { IUseditemQuestionAnswer } from "../../src/types/generated/types";
 

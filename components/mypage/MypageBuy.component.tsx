@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroller";
 import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../../src/api/mypage/MypageBuy.queries";
 import * as Buy from "../../src/styles/mypage/MypageBuy.styles";
-import { IUseditem } from "../../src/types/generated/types";
+import { IPointTransaction } from "../../src/types/generated/types";
 import ItemFlexComponent from "../common/ItemFlex.component";
 
 const MyPageBuyComponent = () => {
@@ -36,8 +36,8 @@ const MyPageBuyComponent = () => {
     <Buy.WrapperDiv>
       <Buy.ListSection>
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
-          {data?.fetchPointTransactionsOfBuying.slice(0, 8).map((el: IUseditem) => (
-            <ItemFlexComponent el={el} category={"sold"} />
+          {data?.fetchPointTransactionsOfBuying.slice(0, 8).map((el: IPointTransaction) => (
+            <ItemFlexComponent el={el.useditem} category={"buy"} />
           ))}
         </InfiniteScroll>
       </Buy.ListSection>

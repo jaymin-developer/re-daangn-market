@@ -1,11 +1,11 @@
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
-import "moment/locale/ko";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import {
+  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
   DELETE_USED_ITEM,
   FETCH_USED_ITEM,
   FETCH_USED_ITEMS_PICKED,
@@ -27,8 +27,15 @@ const MarketDetailComponent = () => {
   const [interestedItems, setInterestedItems] = useState([]);
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING, {
+    variables: { useritemId: String(router.query.id) },
+  });
 
-  const { data: itemData, loading } = useQuery(FETCH_USED_ITEM, {
+  const {
+    data: itemData,
+    loading,
+    refetch,
+  } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.detail) },
   });
 
@@ -53,6 +60,18 @@ const MarketDetailComponent = () => {
 
   const onClickMoveEdit = () => {
     router.push(`${router.query.detail}/edit`);
+  };
+
+  const onClickPayment = async () => {
+    try {
+      await createPointTransactionOfBuyingAndSelling({
+        variables: { useritemId: String(router.query.detail) },
+      });
+      refetch();
+      Modal.success({ content: "상품 구매 완료!" });
+    } catch (error) {
+      error instanceof Error && Modal.error({ content: error.message });
+    }
   };
 
   const onClickToggleUsedItemPick = async () => {
@@ -105,6 +124,8 @@ const MarketDetailComponent = () => {
       setPick(false);
     }
   }, [pickData]);
+
+  console.log(itemData);
 
   return (
     <Detail.WrapperArticle>
@@ -179,6 +200,11 @@ const MarketDetailComponent = () => {
               ))}
             </Detail.InterestedItemsDiv>
           </Detail.InterestedWrapperDiv>
+
+          {itemData?.fetchUseditem?.soldAt && <Detail.BuyButton disabled> 판매완료!</Detail.BuyButton>}
+          {!itemData?.fetchUseditem?.soldAt && (
+            <Detail.BuyButton onClick={onClickPayment}>{itemData?.fetchUseditem?.price} 원 | 구매하기</Detail.BuyButton>
+          )}
         </>
       )}
     </Detail.WrapperArticle>

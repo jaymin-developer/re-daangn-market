@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import moment from "moment";
-import "moment/locale/ko";
 import { useRouter } from "next/router";
 import { FormatKRW } from "../../src/commons/libraries/getNumberFormat";
 import { IUseditem } from "../../src/types/generated/types";
 import { Color, FontSize } from "../../src/styles/theme";
+import moment from "moment";
 
 interface IPropsItem {
   el: IUseditem;
@@ -16,38 +15,34 @@ const ItemFlexComponent = (props: IPropsItem) => {
   const onClickMoveToDetail = () => {
     const basket = JSON.parse(localStorage.getItem("interested") || "[]");
 
-    if (JSON.stringify(localStorage).includes(props.el._id) === false) {
+    if (JSON.stringify(localStorage).includes(props.el?._id) === false) {
       basket.unshift(props.el);
     }
     localStorage.setItem("interested", JSON.stringify(basket));
-    router.push(`/market/${props.el._id}`);
+    router.push(`/market/${props.el?._id}`);
   };
 
   return (
-    <ItemWrapperArticle key={props.el._id} id={props.el._id} onClick={onClickMoveToDetail}>
+    <ItemWrapperArticle key={props.el?._id} id={props.el?._id} onClick={onClickMoveToDetail}>
       <ItemImgDiv>
         <ItemImg
-          title={props.el.name}
-          alt={props.el.name}
-          src={`https://storage.googleapis.com/${props.el.images[0]}`}
+          title={props.el?.name}
+          alt={props.el?.name}
+          src={`https://storage.googleapis.com/${props.el?.images[0]}`}
           onError={(e) => {
             e.currentTarget.src = "/logo_daangn.png";
           }}
         />
       </ItemImgDiv>
       <ItemDescDiv>
-        <ItemNameH2>{props.el.name}</ItemNameH2>
-        <ItemPriceDiv>{FormatKRW(props.el.price)}</ItemPriceDiv>
+        <ItemNameH2>상품 : {props.el?.name}</ItemNameH2>
+        <ItemPriceDiv>가격 : {FormatKRW(props.el?.price)}</ItemPriceDiv>
         <ItemRegionDiv>
-          {props.el.useditemAddress?.address ? props.el.useditemAddress.address : "위치 정보 없음"}
+          {props.el?.useditemAddress?.address ? props.el?.useditemAddress.address : "위치 정보 없음"}
         </ItemRegionDiv>
       </ItemDescDiv>
-      {props.category === "sold" && (
-        <>
-          <ItemOptionDiv>{props.el?.soldAt ? "판매완료" : "판매중"}</ItemOptionDiv>
-          {props.el?.soldAt && <p> ${moment(props.el?.soldAt).format("LLL")}</p>}
-        </>
-      )}
+      {props.category === "sold" && <ItemOptionDiv>{props.el?.soldAt ? "판매완료" : "판매중"}</ItemOptionDiv>}
+      {props.category === "buy" && <ItemOptionDiv>{moment(props.el?.soldAt).format("L")} 구매완료</ItemOptionDiv>}
     </ItemWrapperArticle>
   );
 };
@@ -55,8 +50,11 @@ const ItemFlexComponent = (props: IPropsItem) => {
 export default ItemFlexComponent;
 
 const ItemWrapperArticle = styled.article`
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+
   align-items: center;
 
   padding: 10px;
@@ -69,7 +67,6 @@ const ItemWrapperArticle = styled.article`
 `;
 
 const ItemImgDiv = styled.div`
-  width: 40%;
   aspect-ratio: 1/1;
   overflow: hidden;
 
@@ -85,12 +82,12 @@ const ItemImg = styled.img`
 
 const ItemNameH2 = styled.h2`
   width: 100%;
-  font-size: ${FontSize.CardTitle};
+  font-size: 24px;
 `;
 
 const ItemPriceDiv = styled.div`
   width: 100%;
-  font-size: ${FontSize.CardPrice};
+  font-size: 18px;
   font-weight: 700;
 `;
 
@@ -108,7 +105,6 @@ const ItemDescDiv = styled.div`
 `;
 
 const ItemOptionDiv = styled.div`
-  width: 20%;
   display: flex;
   flex-direction: column;
 

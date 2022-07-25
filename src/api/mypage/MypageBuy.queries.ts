@@ -6,6 +6,7 @@ export const FETCH_POINT_TRANSACTION_OF_BUYING = gql`
       amount
       balance
       useditem {
+        _id
         name
         price
         soldAt

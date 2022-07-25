@@ -1,5 +1,6 @@
 import "../src/styles/reset.ts";
 import "antd/dist/antd.css";
+import "moment/locale/ko";
 import { ApolloClient, InMemoryCache, ApolloProvider, ApolloLink } from "@apollo/client";
 import type { AppProps } from "next/app";
 
