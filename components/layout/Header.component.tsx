@@ -45,7 +45,7 @@ const LayoutHeaderComponent = () => {
     if (localStorage.getItem("userInfo")) {
       setUserInfo(JSON.parse(localStorage.getItem("userInfo") || ""));
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <Header.WrapperHeader>

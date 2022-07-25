@@ -109,7 +109,6 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       },
     };
 
-    //
     try {
       const result = await createUseditem({
         variables: writeVariables,
