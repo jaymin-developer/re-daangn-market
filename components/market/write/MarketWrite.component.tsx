@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import * as Write from "../../../src/styles/market/write/MarketWrite.style";
-import { Modal } from "antd";
+import { Image, Modal } from "antd";
 import React, { ChangeEvent, KeyboardEvent, SetStateAction, useRef, useState } from "react";
 import { FuncButtonMain, MoveButtonSub } from "../../common/Button.component";
 import { useRouter } from "next/router";
@@ -23,7 +23,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     remarks: "",
     price: 0,
   });
-  const [images, setImages] = useState<SetStateAction<string[]>>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [address, setAddress] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tag, setTag] = useState("");
@@ -47,7 +47,12 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   //사진 파일 업로드
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (images.length > 4) {
+      Modal.error({ content: "이미지는 5장만 이하만 업로드 가능합니다." });
+      return;
+    }
     const file = event.target.files?.[0];
+
     try {
       const result = await uploadFile({
         variables: { file },
@@ -145,6 +150,12 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   return (
     <Write.WrapperDiv>
       <Write.InputBoxDiv>
+        <Write.ImageInput type="file" onChange={onChangeFile} />
+        <Write.ImagesBoxDiv>
+          {images.map((el: string) => (
+            <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
+          ))}
+        </Write.ImagesBoxDiv>
         <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
         <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
         <Write.PriceInput id="price" type="number" placeholder="가격(필수)" onChange={onChangeRequiredInfo} />

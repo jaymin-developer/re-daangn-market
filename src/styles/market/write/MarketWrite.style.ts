@@ -39,6 +39,30 @@ export const BaseInput = styled.input`
   outline: none;
 `;
 
+export const ImageInput = styled.input``;
+
+export const ImagesBoxDiv = styled.div`
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+
+  padding: 20px 10px;
+
+  border: none;
+  border-top: 1px solid #d2d2d2;
+
+  overflow: scroll;
+`;
+
+export const ItemImg = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+`;
+
 export const TitleInput = styled(BaseInput)``;
 
 export const RemarksInput = styled(BaseInput)``;

@@ -168,11 +168,12 @@ const MarketDetailComponent = () => {
               )}
 
               {itemData?.fetchUseditem.pickedCount}
-              {userInfo?._id === itemData?.fetchUseditem.seller._id && (
-                <Dropdown overlay={menu} trigger={["click"]}>
-                  <a onClick={(e) => e.preventDefault()}>글 관리</a>
-                </Dropdown>
-              )}
+              {console.log(userInfo?._id, itemData?.fetchUseditem.seller._id)}
+              {/* {userInfo?._id === itemData?.fetchUseditem.seller._id && ( */}
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <a onClick={(e) => e.preventDefault()}>글 관리</a>
+              </Dropdown>
+              {/* )} */}
             </Detail.ItemPickDiv>
           </Detail.SellerHeaderDiv>
           <Detail.ItemDescDiv>
