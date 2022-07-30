@@ -8,6 +8,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM, UPLOAD_FILE } from "../../../src/api/market/write/MarketWrite.qureies";
 import { FormValues, IPropsMarketWrite } from "../../../src/types/market/write/MarketWrite.types";
 import { Editor } from "@toast-ui/react-editor";
+import { PictureOutlined } from "@ant-design/icons";
 
 const ToastEditorComponent = dynamic(() => import("../../../components/common/ToastEditor.component"), { ssr: false });
 
@@ -16,6 +17,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   //useRef
   const editorRef = useRef<Editor>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   //useState
   const [requiredInfo, setReqieredInfo] = useState<FormValues>({
@@ -71,10 +73,15 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   // 태그 등록
   const onKeyUpTags = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && tag.includes("#") && tags.includes(tag) === false && tags.length < 5) {
+    if (e.key === "Enter" && tags.includes(tag) === false && tags.length < 5) {
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
+  };
+
+  //
+  const onClickImage = () => {
+    fileRef.current?.click();
   };
 
   // 게시글 등록
@@ -150,7 +157,8 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   return (
     <Write.WrapperDiv>
       <Write.InputBoxDiv>
-        <Write.ImageInput type="file" onChange={onChangeFile} />
+        <FuncButtonMain name={`📸 사진 업로드`} func={onClickImage} />
+        <Write.ImageInput type="file" onChange={onChangeFile} ref={fileRef} />
         <Write.ImagesBoxDiv>
           {images.map((el: string) => (
             <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
@@ -159,7 +167,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
         <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
         <Write.PriceInput id="price" type="number" placeholder="가격(필수)" onChange={onChangeRequiredInfo} />
-        <Write.TagsInput placeholder="태그(선택, 최대 5개)" />
+        <Write.TagsInput placeholder="태그(선택, 최대 5개)" onKeyUp={onKeyUpTags} />
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>
         <ToastEditorComponent editorRef={editorRef} youtubeUrls={youtubeUrls} setYoutubeUrls={setYoutubeUrls} />

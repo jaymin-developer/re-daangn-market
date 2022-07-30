@@ -39,7 +39,9 @@ export const BaseInput = styled.input`
   outline: none;
 `;
 
-export const ImageInput = styled.input``;
+export const ImageInput = styled.input`
+  display: none;
+`;
 
 export const ImagesBoxDiv = styled.div`
   width: 100%;
@@ -52,7 +54,6 @@ export const ImagesBoxDiv = styled.div`
   padding: 20px 10px;
 
   border: none;
-  border-top: 1px solid #d2d2d2;
 
   overflow: scroll;
 `;
