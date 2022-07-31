@@ -73,7 +73,7 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
 
   // 태그 등록
   const onKeyUpTags = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && tags.includes(tag) === false && tags.length < 5) {
+    if (e.key === "Enter" && tag.length > 0 && !tags.includes(tag) && tags.length < 5) {
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
@@ -99,7 +99,6 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     if (youtubeUrls.length > 0) {
       for (let i = 0; i < youtubeUrls.length; i++) {
         if (changedContents?.includes(`${youtubeUrls[i]}`)) {
-          console.log(youtubeUrls[i]);
           changedContents = changedContents.replace(
             `<p><img src="https://img.youtube.com/vi/${youtubeUrls[i]}/hqdefault.jpg" contenteditable="false"><img class="ProseMirror-separator" alt=""><br class="ProseMirror-trailingBreak"></p>`,
             `<div class="youtube-iframe"><iframe width='560' height='315' src='https://www.youtube.com/embed/${youtubeUrls[i]}' title='YouTube video player' frameBorder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe></div>`
@@ -167,7 +166,12 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
         <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
         <Write.PriceInput id="price" type="number" placeholder="가격(필수)" onChange={onChangeRequiredInfo} />
-        <Write.TagsInput placeholder="태그(선택, 최대 5개)" onKeyUp={onKeyUpTags} />
+        <Write.TagsInputBox>
+          {tags.map((el) => (
+            <Write.TagDiv>{el}</Write.TagDiv>
+          ))}
+          <Write.TagsInput placeholder="태그(선택, 최대 5개)" onChange={onChangeTag} onKeyUp={onKeyUpTags} />
+        </Write.TagsInputBox>
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>
         <ToastEditorComponent editorRef={editorRef} youtubeUrls={youtubeUrls} setYoutubeUrls={setYoutubeUrls} />

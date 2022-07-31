@@ -125,8 +125,6 @@ const MarketDetailComponent = () => {
     }
   }, [pickData]);
 
-  console.log(itemData);
-
   return (
     <Detail.WrapperArticle>
       <Head>
@@ -168,7 +166,6 @@ const MarketDetailComponent = () => {
               )}
 
               {itemData?.fetchUseditem.pickedCount}
-              {console.log(userInfo?._id, itemData?.fetchUseditem.seller._id)}
               {/* {userInfo?._id === itemData?.fetchUseditem.seller._id && ( */}
               <Dropdown overlay={menu} trigger={["click"]}>
                 <a onClick={(e) => e.preventDefault()}>글 관리</a>
@@ -179,7 +176,7 @@ const MarketDetailComponent = () => {
           <Detail.ItemDescDiv>
             <Detail.ItemTagsDiv>
               {itemData?.fetchUseditem.tags.map((el: string) => {
-                return <div>{el.slice(1)}</div>;
+                return <div>{el}</div>;
               })}
             </Detail.ItemTagsDiv>
             <Detail.ItemNameH1>{itemData?.fetchUseditem.name}</Detail.ItemNameH1>

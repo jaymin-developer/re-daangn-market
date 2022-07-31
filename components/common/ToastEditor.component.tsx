@@ -80,7 +80,6 @@ const ToastEditorComponent = (props: IPropsToastEditor) => {
       ],
     };
   };
-  console.log(props.youtubeUrls);
 
   return (
     <Editor

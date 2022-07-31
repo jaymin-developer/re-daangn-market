@@ -70,8 +70,29 @@ export const RemarksInput = styled(BaseInput)``;
 
 export const PriceInput = styled(BaseInput)``;
 
-export const TagsInput = styled(BaseInput)`
+export const TagsInputBox = styled.div`
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  border-top: 1px solid #d2d2d2;
   border-bottom: 1px solid #d2d2d2;
+
+  gap: 10px;
+`;
+
+export const TagDiv = styled.div`
+  padding: 10px;
+
+  color: #ffffff;
+  background-color: ${Color.Main};
+
+  border-radius: 8px;
+`;
+
+export const TagsInput = styled(BaseInput)`
+  border: none;
 `;
 
 export const ToastEditorBoxDiv = styled.div`
