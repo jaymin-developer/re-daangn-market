@@ -67,8 +67,8 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
   };
 
   // 태그 변화
-  const onChangeTag = (event: ChangeEvent<HTMLInputElement>) => {
-    setTag(event.target.value);
+  const onChangeTag = (e: ChangeEvent<HTMLInputElement>) => {
+    setTag(e.target.value);
   };
 
   // 태그 등록
@@ -77,9 +77,12 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       setTags((prev) => [...prev, tag]);
       setTag("");
     }
+    if (e.key === "Backspace" && tag === "") {
+      setTags((prev) => [...prev].slice(0, prev.length - 1));
+    }
   };
 
-  //
+  // input으로 클릭
   const onClickImage = () => {
     fileRef.current?.click();
   };
@@ -159,9 +162,11 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
         <FuncButtonMain name={`📸 사진 업로드`} func={onClickImage} />
         <Write.ImageInput type="file" onChange={onChangeFile} ref={fileRef} />
         <Write.ImagesBoxDiv>
-          {images.map((el: string) => (
-            <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
-          ))}
+          {props.isEdit &&
+            props.data?.fetchUseditem.images.map((el: string) => (
+              <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
+            ))}
+          {props.isEdit || images.map((el: string) => <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />)}
         </Write.ImagesBoxDiv>
         <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
         <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
@@ -170,7 +175,12 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
           {tags.map((el) => (
             <Write.TagDiv>{el}</Write.TagDiv>
           ))}
-          <Write.TagsInput placeholder="태그(선택, 최대 5개)" onChange={onChangeTag} onKeyUp={onKeyUpTags} />
+          <Write.TagsInput
+            placeholder="태그(선택, 최대 5개), 입력 후 Enter를 눌러주세요."
+            onChange={onChangeTag}
+            onKeyUp={onKeyUpTags}
+            value={tag}
+          />
         </Write.TagsInputBox>
       </Write.InputBoxDiv>
       <Write.ToastEditorBoxDiv>

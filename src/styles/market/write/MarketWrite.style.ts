@@ -83,6 +83,7 @@ export const TagsInputBox = styled.div`
 `;
 
 export const TagDiv = styled.div`
+  width: max-content;
   padding: 10px;
 
   color: #ffffff;
@@ -92,6 +93,8 @@ export const TagDiv = styled.div`
 `;
 
 export const TagsInput = styled(BaseInput)`
+  max-width: 100%;
+  width: 50%;
   border: none;
 `;
 
