@@ -1,19 +1,19 @@
 import dynamic from "next/dynamic";
 import * as Write from "../../../src/styles/market/write/MarketWrite.style";
-import { Image, Modal } from "antd";
-import React, { ChangeEvent, KeyboardEvent, SetStateAction, useRef, useState } from "react";
+import { Modal } from "antd";
+import React, { ChangeEvent, KeyboardEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import { FuncButtonMain, MoveButtonSub } from "../../common/Button.component";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM, UPLOAD_FILE } from "../../../src/api/market/write/MarketWrite.qureies";
 import { FormValues, IPropsMarketWrite } from "../../../src/types/market/write/MarketWrite.types";
 import { Editor } from "@toast-ui/react-editor";
-import { PictureOutlined } from "@ant-design/icons";
 
 const ToastEditorComponent = dynamic(() => import("../../../components/common/ToastEditor.component"), { ssr: false });
 
 const MarketWriteComponent = (props: IPropsMarketWrite) => {
   const router = useRouter();
+  const usedItemHistory = props.data?.fetchUseditem;
 
   //useRef
   const editorRef = useRef<Editor>(null);
@@ -156,21 +156,43 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
     }
   };
 
+  useEffect(() => {
+    usedItemHistory?.images.length && setImages([...usedItemHistory?.images]);
+    usedItemHistory?.tags.length && setTags([...usedItemHistory?.tags]);
+    usedItemHistory?.contents && editorRef.current?.getInstance().setHTML(usedItemHistory?.contents);
+  }, [props.data]);
+
   return (
     <Write.WrapperDiv>
       <Write.InputBoxDiv>
         <FuncButtonMain name={`📸 사진 업로드`} func={onClickImage} />
         <Write.ImageInput type="file" onChange={onChangeFile} ref={fileRef} />
         <Write.ImagesBoxDiv>
-          {props.isEdit &&
-            props.data?.fetchUseditem.images.map((el: string) => (
-              <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
-            ))}
-          {props.isEdit || images.map((el: string) => <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />)}
+          {images.map((el: string) => (
+            <Write.ItemImg src={`https://storage.googleapis.com/${el}`} />
+          ))}
         </Write.ImagesBoxDiv>
-        <Write.TitleInput id="name" type="text" placeholder="상품명(필수)" onChange={onChangeRequiredInfo} />
-        <Write.RemarksInput id="remarks" type="text" placeholder="한줄평(필수)" onChange={onChangeRequiredInfo} />
-        <Write.PriceInput id="price" type="number" placeholder="가격(필수)" onChange={onChangeRequiredInfo} />
+        <Write.TitleInput
+          id="name"
+          type="text"
+          placeholder="상품명(필수)"
+          onChange={onChangeRequiredInfo}
+          defaultValue={usedItemHistory?.name}
+        />
+        <Write.RemarksInput
+          id="remarks"
+          type="text"
+          placeholder="한줄평(필수)"
+          onChange={onChangeRequiredInfo}
+          defaultValue={usedItemHistory?.remarks}
+        />
+        <Write.PriceInput
+          id="price"
+          type="number"
+          placeholder="가격(필수)"
+          onChange={onChangeRequiredInfo}
+          defaultValue={usedItemHistory?.price}
+        />
         <Write.TagsInputBox>
           {tags.map((el) => (
             <Write.TagDiv>{el}</Write.TagDiv>
@@ -188,7 +210,11 @@ const MarketWriteComponent = (props: IPropsMarketWrite) => {
       </Write.ToastEditorBoxDiv>
       <Write.HeaderBoxDiv>
         <MoveButtonSub type="button" name="목록으로" page="/market" />
-        <FuncButtonMain type="button" name="등록하기" func={onClickSubmit} />
+        {props.isEdit ? (
+          <FuncButtonMain type="button" name="수정하기" func={onClickUpdate} />
+        ) : (
+          <FuncButtonMain type="button" name="등록하기" func={onClickSubmit} />
+        )}
       </Write.HeaderBoxDiv>
     </Write.WrapperDiv>
   );
